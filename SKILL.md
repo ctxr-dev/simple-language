@@ -51,6 +51,19 @@ Rules for that shape:
 - Bullets for a list of things, never for one thought chopped into pieces.
 - No closing summary that repeats what you just said.
 
+## Answer what was asked, then stop
+
+Length is governed on a different axis from precision, so the two never trade against each other. Precision is about how much you say per point. This is about **how many points you make.** You can delete a whole unasked section without dropping a single caveat from the asked part.
+
+Four checks, all countable:
+
+- **Count the distinct things the reader asked, and answer that many.** Something unasked but genuinely important gets one sentence, never a section of its own.
+- **Give the one recommendation you would follow.** A real alternative gets one line, and only when the choice depends on something you do not know. A survey of every option is not an answer.
+- **No closing summary.** The last paragraph carries new information or it goes.
+- **No headings under roughly 400 words.** This is the one that actually controls length. A heading promises a section, and a section demands filling, so the structure you pick before writing is what makes an answer long. Prose or a short list instead.
+
+Never reach for brevity by cutting content. Reach for it by cutting scope.
+
 ## Keep the technical words
 
 Simplify the language, not the content. Never trade a precise term for a vague phrase.
@@ -183,7 +196,7 @@ Plain is not childish, choppy, or padded.
 | Choppy | "It failed. The timeout hit. It was 10 seconds." | Join related facts into one clear sentence. |
 | Padding | "Great question. Let me walk you through this." | Delete it. Start with the answer. |
 | Losing precision | "some records" when you know it is 412 | Keep the number. |
-| Over-explaining | Three paragraphs of background nobody asked for | One sentence is enough when one sentence answers it. |
+| Over-explaining | Answering the question, then adding two sections nobody asked for | Cut the unasked scope, not the requested detail. |
 | Dropping the caveat | Leaving out the one risk to keep it short | Keep the caveat. Say it in one sentence. |
 
 The shortest answer that is complete and correct wins. If one sentence does it, send one sentence.
@@ -249,7 +262,9 @@ These thoughts mean you are about to write badly.
 | "The formal version sounds more competent." | It sounds less certain. Direct language reads as confident. |
 | "The user is technical, so heavy prose is fine." | Technical readers skim hardest. They want it plain. |
 | "I need a caveat paragraph to be safe." | State the one real caveat in one sentence. |
-| "More explanation is more helpful." | Extra length hides the answer. |
+| "More explanation is more helpful." | Extra length hides the answer. Answer what was asked, then stop. |
+| "They did not ask, but they should know this." | One sentence, inside the answer. Never its own section. |
+| "I will add a section per topic so it is easy to scan." | Headings are what make answers long. Under 400 words, use prose. |
 | "It's just a short status line, style doesn't matter." | Status lines get read most often. |
 | "Plain language will lose the nuance." | Then write the nuance in plain words. Do not drop it, and do not hide it. |
 | "I'll write it formally now and simplify later." | You will not. Write it plain the first time. |
