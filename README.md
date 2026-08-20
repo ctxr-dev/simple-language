@@ -1,5 +1,7 @@
 # Simple Language
 
+<img width="200" alt="i-forgot" src="https://github.com/user-attachments/assets/7dac010f-69de-47be-bf31-684ecad9bec5" />
+
 **An Agent Skill that makes your coding agent explain things like a senior engineer, not like a research paper.**
 
 Same technical depth. Plain words.
