@@ -91,29 +91,64 @@ Plain language is not shorter language. It is language that spends its words on 
 
 ---
 
+## It will not make the rest of the work worse
+
+An always-on style rule can do damage in two ways. It can flatten the precision out of an answer, and it can bleed into code. Both were tested.
+
+**Precision held.** Asked to explain at-least-once versus exactly-once delivery in Kafka, where the correct answer needs a caveat that is easy to lose, the agent under the rule kept it: exactly-once holds inside Kafka only, and a write to an external database or an HTTP call is not covered. It also kept the throughput cost and the reason most teams choose at-least-once. One gap did show up: it dropped two config key names the unruled answer included. The rule now names config keys and exact identifiers in its precision limit for that reason.
+
+**Code was untouched.** Asked to write a retry helper with exponential backoff and full jitter, the agent under the rule produced the same quality of TypeScript as the agent without it: correct full-jitter maths, `AbortSignal` support, injectable `random` for deterministic tests, and real names like `retryWithBackoff`, `baseDelayMs`, `maxDelayMs` and `shouldRetry`. Nothing was renamed to sound friendlier and nothing was simplified into being wrong.
+
+That result comes from how the rule is scoped. It states what it governs — prose addressed to a person — rather than listing exceptions. An instruction built as "simplify everything except code" leaks, because the model absorbs "simplify" and the exception does not reliably fence off the code. Defining prose as the whole domain means code was never inside it.
+
+The rule also says outright that reasoning is out of scope, and ranks precision above style in writing. Those two lines are what keep an always-on rule from turning into pressure to be brief, which is how it would otherwise start costing you answers.
+
+---
+
 ## Install
 
+Two steps. The first installs the Skill. The second makes it always on.
+
 ```bash
+# 1. the Skill - the full guidance, loaded on demand
 npx skills add ctxr-dev/simple-language
+
+# 2. the Rule - makes it the default for every message
+mkdir -p ~/.claude/rules
+curl -fsSL https://raw.githubusercontent.com/ctxr-dev/simple-language/main/rules/simple-language.md \
+  -o ~/.claude/rules/simple-language.md
 ```
 
-The full URL works too:
+Restart Claude Code. Nothing to configure, no dependencies, no runtime code.
+
+**Why two steps.** Skills load **on demand**: the agent reads the description and decides whether to open it. Rules load **every session**, with no decision involved. The Skill alone gives you this style most of the time. The Rule makes it the default every time. The `skills` CLI installs Skills, so it cannot place a rule file for you.
+
+<details>
+<summary>Other install options</summary>
+
+**Global instead of project-level** — add `-g` to the `skills` command to install for all your projects.
+
+**Project-level rule** — put the rule at `.claude/rules/simple-language.md` in your repo root instead of your home directory, or paste its contents into your `CLAUDE.md`.
+
+**Other agents** — Codex, Cursor, Copilot CLI and Gemini CLI read `AGENTS.md`. Paste the contents of [`rules/simple-language.md`](rules/simple-language.md) into that file.
+
+**Windows PowerShell** — use `$env:USERPROFILE\.claude\rules` in place of `~/.claude/rules`.
+
+**Track the repo instead of copying** — symlink the rule from a local clone:
 
 ```bash
-npx skills add https://github.com/ctxr-dev/simple-language
+ln -sf "$PWD/rules/simple-language.md" ~/.claude/rules/simple-language.md
 ```
 
-Useful flags:
+**Inspect before installing**
 
 ```bash
-npx skills add ctxr-dev/simple-language -g       # install once for all your projects
-npx skills add ctxr-dev/simple-language -a '*'   # install for every supported agent
-npx skills list                                  # check what is installed
+npx skills add ctxr-dev/simple-language --list
 ```
 
-By default it installs for the current project. Use `-g` to install it once for everything you work on.
+**Install for every supported agent** — add `-a '*'` to the `skills` command.
 
-Works with Claude Code and the other agents the `skills` CLI supports. Nothing to configure, no dependencies, no runtime code.
+</details>
 
 ---
 
@@ -218,12 +253,15 @@ This is a demonstration, not a benchmark.
 
 ```
 SKILL.md                    the skill your agent reads
+rules/simple-language.md    the always-on rule, 364 words
 README.md                   this file
 references/word-swaps.md    the full word list, plus the words to leave alone
 LICENSE                     MIT
 ```
 
-`SKILL.md` sits at the repo root, so the `skills` CLI resolves it as one root skill.
+`SKILL.md` sits at the repo root, so the `skills` CLI resolves it as one root skill with no flags needed.
+
+[`rules/simple-language.md`](rules/simple-language.md) is the always-on half. It is deliberately short, because it loads on every turn, and it carries instructions only. The reasoning behind its wording lives in this README so it costs you nothing at runtime.
 
 [`references/word-swaps.md`](references/word-swaps.md) holds the long lookup list, including a **"keep these words"** section. That section matters more than it sounds: without it, a style skill will happily "simplify" `CPU utilization` into `CPU use` and `implement the interface` into `build the interface`, and both of those are now wrong. The agent reads that file when it is editing text for style, which keeps the main skill small enough to load on every reply.
 

@@ -1,6 +1,6 @@
 ---
 name: simple-language
-description: 'Use when writing anything a person will read - chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit messages, PR text, or docs meant for humans. Also use when a draft reads like a paper, an RFC, or a consulting deck - long sentences, passive voice, abstract nouns in place of plain verbs, stacked hedges, or words like "utilize", "leverage", "facilitate", "it is worth noting that". Also use when the reader may not be a native English speaker.'
+description: 'Use for every message a person will read - chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit messages, PR text, or docs meant for humans. Also use when a draft reads like a paper, an RFC, or a consulting deck - long sentences, passive voice, abstract nouns in place of plain verbs, stacked hedges, or words like "utilize", "leverage", "facilitate", "it is worth noting that". Also use when the reader may not be a native English speaker.'
 ---
 
 # Simple Language
@@ -8,6 +8,16 @@ description: 'Use when writing anything a person will read - chat replies, expla
 Full technical depth. Plain words.
 
 Think as hard as the problem needs. Then say the result in the simplest language that is still exact. This skill changes how you **write**. It never changes how much you **think**.
+
+## Scope and precedence
+
+**This is the default for every message, not a mode you switch on.** It governs one thing: prose you address to a person. Chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit message bodies, PR text, and documents written for humans.
+
+Three hard limits keep it from doing damage. They outrank everything else in this document.
+
+1. **Precision outranks style.** If plainer wording would drop a caveat, a number, a technical term, or a real distinction, keep the content and let the sentence stay longer. A vague sentence has failed this skill, not passed it.
+2. **Your thinking is out of scope.** This governs the wording of the final message and nothing else. Reason as deeply as the problem needs, run the same checks, reach the same conclusions, then say them plainly. Never shorten the work to shorten the sentence.
+3. **Prose is the whole domain.** Code, identifiers, types, tests, schemas, config keys, log and error strings, text quoted back from someone else, and any artifact whose style was requested are not prose. They are written to their own standards, and nothing here reaches them.
 
 ## Who you are writing to
 
@@ -157,16 +167,11 @@ Three special cases:
 - Put the condition first, and keep clauses out of the middle of a sentence: "If the token expired, the request fails."
 - No joke that carries meaning. A joke the reader must decode is a bug.
 
-## What this skill does not touch
+## Requested artifacts keep their own style
 
-Leave these exactly as they are:
+If the user asks for an RFC, a legal notice, an academic abstract, a marketing page, or anything else with a required register, write it in that register. The artifact follows its own standard.
 
-- code, identifiers, types, and API or config key names
-- error messages, log lines, and stack traces you are quoting
-- the user's own words, when you quote them back
-- commit trailers, license text, and generated files
-
-Requested artifacts keep their own required style. If the user asks for an RFC, a legal notice, an academic abstract, or a marketing page, write it in that style. Then still talk to the user in plain language around it.
+Then still talk to the user in plain language around it. The document is formal; your message about the document is not.
 
 ## Do not overcorrect
 
