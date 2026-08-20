@@ -10,9 +10,42 @@ Same technical depth. Plain words.
 ![Runtime code](https://img.shields.io/badge/runtime%20code-none-22c55e)
 [![License](https://img.shields.io/badge/license-MIT-22c55e)](LICENSE)
 
+## Install
+
+Two steps. The first installs the Skill, the second makes it always on.
+
 ```bash
+# 1. the Skill - the full guidance, loaded on demand
 npx skills add ctxr-dev/simple-language
+
+# 2. the Rule - makes it the default for every message
+mkdir -p ~/.claude/rules
+curl -fsSL https://raw.githubusercontent.com/ctxr-dev/simple-language/main/rules/simple-language.md \
+  -o ~/.claude/rules/simple-language.md
 ```
+
+Restart Claude Code. Your agent applies it on its own from then on. You can also ask directly: *"rewrite that in simple language."*
+
+**Why two steps.** Skills load **on demand**, so the agent reads the description and decides. Rules load **every session**, with no decision involved. The Skill alone gives you this style most of the time; the Rule makes it the default every time. The `skills` CLI installs Skills, so it cannot place a rule file for you.
+
+<details>
+<summary>Other install options</summary>
+
+**Global** — add `-g` to the `skills` command to install for all your projects.
+
+**Project-level rule** — put the rule at `.claude/rules/simple-language.md` in your repo root, or paste its contents into `CLAUDE.md`.
+
+**Other agents** — Codex, Cursor, Copilot CLI and Gemini CLI read `AGENTS.md`. Paste in the contents of [`rules/simple-language.md`](rules/simple-language.md).
+
+**Windows PowerShell** — use `$env:USERPROFILE\.claude\rules` in place of `~/.claude/rules`.
+
+**Track the repo instead of copying** — `ln -sf "$PWD/rules/simple-language.md" ~/.claude/rules/simple-language.md`
+
+**Try it without installing** — `npx skills use ctxr-dev/simple-language | claude`
+
+**Inspect first** — `npx skills add ctxr-dev/simple-language --list`
+
+</details>
 
 ---
 
@@ -60,8 +93,6 @@ Every pair below is real, unedited agent output. Same question, same model, same
 > [!TIP]
 > The retry logic with exponential backoff is in the payment client, and I am running the integration tests now.
 
-### Measured
-
 | Example | Without | With | Change |
 |---|---|---|---|
 | Explaining a concept | 29 words | **11 words** | −62% |
@@ -72,117 +103,30 @@ Every pair below is real, unedited agent output. Same question, same model, same
 | **All five** | **149 words** | **96 words** | **−36%** |
 | Reading ease | 43.7 | **62.2** | plain English |
 
-Reading ease is the Flesch score, a standard readability measure. Below 30 means the reader needs a university degree to follow it comfortably. Between 60 and 70 is plain English.
-
-Every technical term survived: eventual consistency, replica, race condition, exponential backoff. Nothing was made vaguer to make it shorter.
+Reading ease is the Flesch score. Below 30 needs a university degree to read comfortably; 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
 
 ---
 
-## It does not cost you precision
+## It does not cost you quality
 
-This is the part people expect to be a trade-off. It is not.
+This is the part people expect to be a trade-off. Three tests say it is not.
 
-In the retry test the answer **without** the skill never used the word *idempotent*. It listed backoff, jitter, and circuit breakers, then stopped. The answer **with** the skill was longer, and used the extra room on the trap that actually loses money:
+**It keeps more, not less.** Asked why retries worsen an outage, the answer *without* the skill never used the word *idempotent*. The answer *with* the skill was longer, and spent the extra words on the trap that actually loses money:
 
 > [!TIP]
 > One more caveat: retrying a request that is not idempotent can duplicate work, so a retry on a payment or an order needs an idempotency key. Idempotent means running it twice gives the same result as running it once.
 
-Plain language is not shorter language. It is language that spends its words on content instead of on sounding clever.
+**Precision survives a subtle caveat.** Asked to explain at-least-once versus exactly-once delivery in Kafka, the ruled agent kept the part that is easy to lose: exactly-once holds inside Kafka only, and a write to an external database or an HTTP call is not covered. One gap did appear — it dropped two config key names — so the rule now names config keys and exact identifiers in its precision limit.
+
+**Code is untouched.** Asked for a retry helper with exponential backoff and full jitter, the ruled agent produced the same quality of TypeScript as the unruled one: correct full-jitter maths, `AbortSignal` support, injectable `random` for deterministic tests, and real names like `retryWithBackoff` and `maxDelayMs`. Nothing renamed to sound friendlier, nothing simplified into being wrong.
+
+That last result comes from how the rule is scoped. It states what it governs — prose addressed to a person — instead of listing exceptions. An instruction built as *"simplify everything except code"* leaks, because the model absorbs "simplify" and the exception does not reliably fence off the code. Defining prose as the whole domain means code was never inside it.
+
+The rule also says outright that reasoning is out of scope, and ranks precision above style. Those two lines are what stop an always-on rule from becoming pressure to be brief.
 
 ---
 
-## It will not make the rest of the work worse
-
-An always-on style rule can do damage in two ways. It can flatten the precision out of an answer, and it can bleed into code. Both were tested.
-
-**Precision held.** Asked to explain at-least-once versus exactly-once delivery in Kafka, where the correct answer needs a caveat that is easy to lose, the agent under the rule kept it: exactly-once holds inside Kafka only, and a write to an external database or an HTTP call is not covered. It also kept the throughput cost and the reason most teams choose at-least-once. One gap did show up: it dropped two config key names the unruled answer included. The rule now names config keys and exact identifiers in its precision limit for that reason.
-
-**Code was untouched.** Asked to write a retry helper with exponential backoff and full jitter, the agent under the rule produced the same quality of TypeScript as the agent without it: correct full-jitter maths, `AbortSignal` support, injectable `random` for deterministic tests, and real names like `retryWithBackoff`, `baseDelayMs`, `maxDelayMs` and `shouldRetry`. Nothing was renamed to sound friendlier and nothing was simplified into being wrong.
-
-That result comes from how the rule is scoped. It states what it governs — prose addressed to a person — rather than listing exceptions. An instruction built as "simplify everything except code" leaks, because the model absorbs "simplify" and the exception does not reliably fence off the code. Defining prose as the whole domain means code was never inside it.
-
-The rule also says outright that reasoning is out of scope, and ranks precision above style in writing. Those two lines are what keep an always-on rule from turning into pressure to be brief, which is how it would otherwise start costing you answers.
-
----
-
-## Install
-
-Two steps. The first installs the Skill. The second makes it always on.
-
-```bash
-# 1. the Skill - the full guidance, loaded on demand
-npx skills add ctxr-dev/simple-language
-
-# 2. the Rule - makes it the default for every message
-mkdir -p ~/.claude/rules
-curl -fsSL https://raw.githubusercontent.com/ctxr-dev/simple-language/main/rules/simple-language.md \
-  -o ~/.claude/rules/simple-language.md
-```
-
-Restart Claude Code. Nothing to configure, no dependencies, no runtime code.
-
-**Why two steps.** Skills load **on demand**: the agent reads the description and decides whether to open it. Rules load **every session**, with no decision involved. The Skill alone gives you this style most of the time. The Rule makes it the default every time. The `skills` CLI installs Skills, so it cannot place a rule file for you.
-
-<details>
-<summary>Other install options</summary>
-
-**Global instead of project-level** — add `-g` to the `skills` command to install for all your projects.
-
-**Project-level rule** — put the rule at `.claude/rules/simple-language.md` in your repo root instead of your home directory, or paste its contents into your `CLAUDE.md`.
-
-**Other agents** — Codex, Cursor, Copilot CLI and Gemini CLI read `AGENTS.md`. Paste the contents of [`rules/simple-language.md`](rules/simple-language.md) into that file.
-
-**Windows PowerShell** — use `$env:USERPROFILE\.claude\rules` in place of `~/.claude/rules`.
-
-**Track the repo instead of copying** — symlink the rule from a local clone:
-
-```bash
-ln -sf "$PWD/rules/simple-language.md" ~/.claude/rules/simple-language.md
-```
-
-**Inspect before installing**
-
-```bash
-npx skills add ctxr-dev/simple-language --list
-```
-
-**Install for every supported agent** — add `-a '*'` to the `skills` command.
-
-</details>
-
----
-
-## Why this exists
-
-Agents drift into academic prose. It is not a small annoyance, it costs you real time:
-
-- You read every answer twice.
-- The actual point sits in sentence four instead of sentence one.
-- Long words hide how certain the agent really is.
-- If English is your second language, every extra clause is extra work.
-
-None of that comes from the agent thinking too much. It comes from the agent **writing** in the wrong register. So this skill changes only the writing.
-
----
-
-## It keeps the technical words
-
-This is not a "dumb it all down" skill. It never trades a precise term for a vague phrase.
-
-| Kind of writing | What happens to it |
-|---|---|
-| Long words with plain equivalents | Replaced. `utilize` becomes `use` |
-| Real technical terms | Kept. Race condition, idempotent, back pressure, quorum |
-| Technology names | Kept exactly. PostgreSQL, gRPC, Kafka, Temporal |
-| Numbers, error text, log lines | Kept exactly |
-| Caveats and real distinctions | Kept, and stated in plain words |
-| Code, identifiers, config keys | Never touched |
-
-A term you may not know arrives with one plain sentence explaining it, exactly as *idempotent* did above. After that it is used without further hand-holding.
-
----
-
-## What it actually changes
+## What it changes
 
 Word swaps are the small part:
 
@@ -194,7 +138,7 @@ Word swaps are the small part:
 + about            show           best       worse         (delete it)
 ```
 
-The core is the six habits that produce heavy prose in the first place:
+The core is the six habits that produce heavy prose:
 
 1. Nouns doing a verb's job — "the decomposition of this responsibility" instead of "split this"
 2. Passive voice that hides who acts
@@ -203,47 +147,37 @@ The core is the six habits that produce heavy prose in the first place:
 5. Stacked hedges
 6. Saying the same thing twice
 
-That distinction matters, and the test proved it. In every answer above, both agents used **zero** words from any avoid-list. The entire measured difference came from sentence structure. A word list alone would have changed nothing.
+That distinction is not theoretical. In every answer above, both agents used **zero** words from any avoid-list. The whole measured difference came from sentence structure, so a word list alone would have changed nothing.
 
 ---
 
-## How to use it
+## What it never touches
 
-Once installed, your agent picks the skill up on its own and applies it to what it writes. There is no command to run.
-
-You can also ask for it directly:
-
-- "Use the simple-language skill for this explanation."
-- "Rewrite that in simple language."
-
-To try it without installing anything:
-
-```bash
-npx skills use ctxr-dev/simple-language | claude
-```
-
----
-
-## When it steps aside
-
-Ask for a formal artifact and you get the formal artifact. Ask for an RFC and you get RFC style. Ask for an academic abstract and you get academic style.
-
-| | Style |
+| Left exactly as it is | Why |
 |---|---|
-| **What the agent says to you** | Always simple and direct |
-| **What the agent produces because you asked for it** | Whatever style that artifact needs |
+| Code, identifiers, types, tests, config keys | Not prose. Outside the rule's domain |
+| Technical terms — race condition, idempotent, quorum | The correct word is the clear word |
+| Technology names — PostgreSQL, gRPC, Kafka, Temporal | Written the way their docs write them |
+| Numbers, error text, log lines, quoted text | Reproduced exactly |
+| An artifact whose style you asked for | An RFC stays RFC style, an abstract stays academic |
 
-It also never rewrites code, identifiers, config keys, error messages, or your own words quoted back to you.
+A term you may not know arrives with one plain sentence explaining it, exactly as *idempotent* did above. After that it is used without further hand-holding.
 
 ---
 
-## How these numbers were measured
+## Why it exists
 
-Fresh agents, same model (Claude Opus), no shared context between them. One agent in each pair loaded this skill, the other was told not to load any skill. Both got the same prompt otherwise, with no instruction about style, length, or word choice. Every sentence quoted above is unedited output.
+Heavy prose costs real time. You read every answer twice, the point sits in sentence four instead of sentence one, and long words hide how certain the agent really is. If English is your second language, every extra clause is extra work.
 
-Word counts, syllable counts, and the Flesch score were computed from the raw text.
+None of that comes from the agent thinking too much. It comes from the agent **writing** in the wrong register, so this changes only the writing.
 
-**Two cases where it made almost no difference**, both worth knowing. Reviewing one line of code came out 6% shorter, and recommending a queue also 6%. In both, the answer without the skill was already plain, so there was little to fix. The skill helps most where the topic invites dense prose, and least where the answer is already concrete.
+---
+
+## How this was measured
+
+Fresh agents, same model (Claude Opus), no shared context. One agent in each pair loaded the skill; the other was told not to load any skill. Both got the same prompt otherwise, with no instruction about style, length, or word choice. Every quoted sentence is unedited. Word counts, syllable counts and Flesch scores were computed from the raw text.
+
+**Two cases barely moved.** Reviewing one line of code came out 6% shorter, and recommending a queue also 6%. In both, the unruled answer was already plain, so there was little to fix. The skill helps most where the topic invites dense prose and least where the answer is already concrete.
 
 This is a demonstration, not a benchmark.
 
@@ -259,11 +193,9 @@ references/word-swaps.md    the full word list, plus the words to leave alone
 LICENSE                     MIT
 ```
 
-`SKILL.md` sits at the repo root, so the `skills` CLI resolves it as one root skill with no flags needed.
+`SKILL.md` sits at the repo root, so the `skills` CLI resolves it with no flags. [`rules/simple-language.md`](rules/simple-language.md) is deliberately short because it loads on every turn, and it carries instructions only — the reasoning behind its wording lives here, where it costs nothing at runtime.
 
-[`rules/simple-language.md`](rules/simple-language.md) is the always-on half. It is deliberately short, because it loads on every turn, and it carries instructions only. The reasoning behind its wording lives in this README so it costs you nothing at runtime.
-
-[`references/word-swaps.md`](references/word-swaps.md) holds the long lookup list, including a **"keep these words"** section. That section matters more than it sounds: without it, a style skill will happily "simplify" `CPU utilization` into `CPU use` and `implement the interface` into `build the interface`, and both of those are now wrong. The agent reads that file when it is editing text for style, which keeps the main skill small enough to load on every reply.
+[`references/word-swaps.md`](references/word-swaps.md) holds the long lookup list, including a **"keep these words"** section. That section matters more than it sounds: without it a style pass will happily turn `CPU utilization` into `CPU use` and `implement the interface` into `build the interface`, and both are now wrong.
 
 ---
 
