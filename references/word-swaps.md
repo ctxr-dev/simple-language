@@ -39,6 +39,16 @@ The rule is one line: **do not use a longer word just because a shorter one exis
 | propagate | spread, pass on |
 | mitigate | reduce, limit, soften |
 | aggregate | combine, add up, group |
+| constitutes, constitute | is, are |
+| predicate on | base on |
+| posit | suggest, claim, say |
+| deem | consider, call |
+| operationalize | put into practice, run, build |
+| incentivize | encourage, reward, pay people to |
+| ideate | come up with ideas |
+| leverage (as a verb) | use |
+| action (as a verb) | do, handle |
+| architect (as a verb) | design |
 
 ## Connectors and transitions
 
@@ -63,6 +73,15 @@ The rule is one line: **do not use a longer word just because a shorter one exis
 | in terms of | for, about, or delete it |
 | as such | so, or delete it |
 | in conclusion | delete it |
+| albeit | though, but |
+| thereby | so |
+| ergo | so |
+| insofar as | as far as, to the extent that |
+| vis-a-vis | compared with, about |
+| tantamount to | the same as |
+| in lieu of | instead of |
+| absent (as a preposition) | without |
+| should you wish to | if you want to |
 
 ## Openers to delete
 
@@ -88,6 +107,16 @@ These carry no information. Delete the whole phrase and start with the point.
 - interestingly
 - notably
 - essentially, fundamentally, basically (when they add nothing)
+- at this juncture
+- going forward
+- in due course
+- for the avoidance of doubt
+- it follows that
+- one could posit that
+- by way of background
+- suffice it to say
+- as a matter of course
+- in the interest of completeness
 
 ## Quantities and comparisons
 
@@ -107,6 +136,12 @@ These carry no information. Delete the whole phrase and start with the point.
 | minimal, negligible | small, tiny, or the real number |
 | in excess of | more than, over |
 | a considerable amount of time | slow, or the real duration |
+| a myriad of | many, or the real number |
+| a plethora of | many, too many |
+| by and large | mostly |
+| in large part | mostly |
+| a non-zero number of | some, or the real number |
+| an order of magnitude | 10x, or the real factor |
 
 Best swap of all: replace the vague word with the number. "3.2 seconds" beats "significant latency".
 
@@ -135,6 +170,16 @@ Best swap of all: replace the vague word with the number. "3.2 seconds" beats "s
 | aforementioned | this, that, the |
 | heretofore, henceforth, hitherto | delete it, or say "until now" / "from now on" |
 | notwithstanding | despite, even though |
+| learnings | lessons, what we learned |
+| touchpoint | contact, the place they interact |
+| alignment (about people) | agreement |
+| cadence | schedule, how often |
+| deliverable | what we hand over, the file, the doc |
+| aforesaid | this, that |
+| verbiage | wording, text |
+| ask (as a noun) | request, what they want |
+| spend (as a noun) | cost, budget |
+| learnings-to-date | what we know so far |
 
 ## Words that sound impressive and say nothing
 
@@ -155,6 +200,33 @@ Replace each with the measurable fact behind it.
 | cutting-edge, state of the art | delete it |
 | synergy | say who works with whom, on what |
 | game-changer | say what changed |
+| actionable | say what someone can actually do |
+| best-in-class | delete it |
+
+## Formal adjectives and participles
+
+These are the words that make a sentence read like a journal abstract. Each one has a plain replacement.
+
+| Instead of | Write |
+|---|---|
+| attributable to | caused by |
+| predicated upon | based on |
+| wherein, whereby, therein, whereupon | start a new sentence, or use "where" / "so that" |
+| salient | main, important |
+| germane | relevant |
+| cognizant of | aware of |
+| requisite | needed, required |
+| myriad | many |
+| erroneous | wrong |
+| deleterious | harmful, bad |
+| efficacious | it works |
+| non-trivial | hard, or say how hard it is |
+| trivially | easily, or delete it |
+| ostensibly | apparently, it looks like |
+| purportedly | supposedly, they claim |
+| commensurate with | matching, in line with |
+| concomitant | that comes with it |
+| requisite to | needed for |
 
 ## Idioms and business phrases to avoid
 
@@ -204,7 +276,23 @@ Do not swap these. Swapping them makes the text wrong, not simpler.
 | provision | creating infrastructure |
 | deprecate | the formal lifecycle stage |
 
-**Product, protocol, and library names.** Write them the way their docs write them, including case: PostgreSQL, Kafka, gRPC, OAuth, JWT, Redis, Temporal, Kubernetes, TypeScript.
+**Product, protocol, and library names.****Words that look academic but are precise engineering terms.** Do not swap any of these.
+
+| Word | Keep it when it means |
+|---|---|
+| orthogonal | genuinely independent concerns, changing one does not affect the other |
+| canonical | the one official form: a canonical URL, a canonical representation |
+| idiomatic | matching a language's normal style: idiomatic Go, idiomatic Rust |
+| heuristic | a rule of thumb the code actually applies |
+| deterministic | the same input always gives the same output |
+| granular, fine-grained | the real size of the unit: per-row locks vs per-table locks |
+| caveat | a real exception or limitation you are naming |
+| invariant | a condition the code guarantees at all times |
+| idempotent | running it twice gives the same result as running it once |
+| monotonic | a value that only ever moves one way |
+| eventual consistency | the specific replication guarantee, not vague slowness |
+
+ Write them the way their docs write them, including case: PostgreSQL, Kafka, gRPC, OAuth, JWT, Redis, Temporal, Kubernetes, TypeScript.
 
 **Exact quoted text.** Error messages, log lines, stack traces, config keys, and anything the user wrote. Quote it exactly, even when it is badly worded.
 
