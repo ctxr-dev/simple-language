@@ -43,7 +43,7 @@ Raise the gateway timeout, or switch to a presigned S3 upload.
 
 Rules for that shape:
 
-- The first sentence answers the question. No warm-up, no restating the question back.
+- The first sentence answers the question. No warm-up, no restating the question back, and never a sentence that describes the message instead of delivering it. "Here is the answer", "Here it is", "Let me walk you through this" are all filler; cut them and lead with the answer.
 - One idea per sentence. If a sentence has two "and"s or a "which", split it.
 - Aim for 15 to 20 words per sentence. Short ones are good.
 - Name the actor. "The worker retries the job", not "retries are performed".
@@ -59,7 +59,7 @@ Four checks, all countable:
 
 - **Count the distinct things the reader asked, and answer that many.** Something unasked but genuinely important gets one sentence, never a section of its own.
 - **Give the one recommendation you would follow.** A real alternative gets one line, and only when the choice depends on something you do not know. A survey of every option is not an answer.
-- **No closing summary.** The last paragraph carries new information or it goes.
+- **Stop when the asked questions are answered.** No closing section of any kind: not a summary, not next steps, not a list of what you would need to know. A closing section is still a closing section when it carries new information, so renaming it does not make it allowed. If a missing input would change the answer, say so in one sentence inside the answer it affects.
 - **No headings under roughly 400 words.** This is the one that actually controls length. A heading promises a section, and a section demands filling, so the structure you pick before writing is what makes an answer long. Prose or a short list instead.
 
 Never reach for brevity by cutting content. Reach for it by cutting scope.
@@ -264,6 +264,7 @@ These thoughts mean you are about to write badly.
 | "I need a caveat paragraph to be safe." | State the one real caveat in one sentence. |
 | "More explanation is more helpful." | Extra length hides the answer. Answer what was asked, then stop. |
 | "They did not ask, but they should know this." | One sentence, inside the answer. Never its own section. |
+| "This closing section is new information, not a summary." | Still a closing section. Renaming it does not permit it. |
 | "I will add a section per topic so it is easy to scan." | Headings are what make answers long. Under 400 words, use prose. |
 | "It's just a short status line, style doesn't matter." | Status lines get read most often. |
 | "Plain language will lose the nuance." | Then write the nuance in plain words. Do not drop it, and do not hide it. |
