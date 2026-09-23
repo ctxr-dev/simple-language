@@ -118,6 +118,19 @@ These carry no information. Delete the whole phrase and start with the point.
 - as a matter of course
 - in the interest of completeness
 
+## Words that shrink the thing you are explaining
+
+These make real content sound trivial. Delete the word and state the fact.
+
+| Instead of | Write |
+|---|---|
+| just a race condition | a race condition |
+| simply add an index | add an index |
+| basically what happens is | delete it, start with what happens |
+| don't worry about the details | name the detail, or leave it out |
+| it's pretty straightforward | delete it |
+| all you need to do is | delete it |
+
 ## Quantities and comparisons
 
 | Instead of | Write |
@@ -276,7 +289,9 @@ Do not swap these. Swapping them makes the text wrong, not simpler.
 | provision | creating infrastructure |
 | deprecate | the formal lifecycle stage |
 
-**Product, protocol, and library names.****Words that look academic but are precise engineering terms.** Do not swap any of these.
+**Product, protocol, and library names.** Write them the way their docs write them, including case: PostgreSQL, Kafka, gRPC, OAuth, JWT, Redis, Temporal, Kubernetes, TypeScript.
+
+**Words that look academic but are precise engineering terms.** Do not swap any of these.
 
 | Word | Keep it when it means |
 |---|---|
@@ -291,8 +306,6 @@ Do not swap these. Swapping them makes the text wrong, not simpler.
 | idempotent | running it twice gives the same result as running it once |
 | monotonic | a value that only ever moves one way |
 | eventual consistency | the specific replication guarantee, not vague slowness |
-
- Write them the way their docs write them, including case: PostgreSQL, Kafka, gRPC, OAuth, JWT, Redis, Temporal, Kubernetes, TypeScript.
 
 **Exact quoted text.** Error messages, log lines, stack traces, config keys, and anything the user wrote. Quote it exactly, even when it is badly worded.
 
