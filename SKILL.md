@@ -1,6 +1,6 @@
 ---
 name: simple-language
-description: 'Use for every message a person will read - chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit messages, PR text, or docs meant for humans. Also use when a draft reads like a paper, an RFC, or a consulting deck - long sentences, passive voice, abstract nouns in place of plain verbs, stacked hedges, or words like "utilize", "leverage", "facilitate", "it is worth noting that". Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count. Also use when a reader asks for something simpler, says "like I''m five", or says again that they do not understand - there is a second level that is shorter and plainer, never longer. Also use when the reader may not be a native English speaker.'
+description: "Use for every message a person will read: chat replies, explanations, plans, analysis, review comments, progress updates, error reports, commit and PR text, and docs for humans. Level 1 is the default and applies every time, with no trigger. Level 2 is the simplest version, with commoner words, sentences of nine words at most, and never more words than before; it fires only when the reader asks for it simpler, says like I'm five, or says again that they do not understand. Also use when a draft reads like a paper or an RFC: long sentences, passive voice, abstract nouns instead of plain verbs, or words like utilize, leverage, facilitate. Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count, and when the reader may not be a native English speaker. Do NOT use for text no person reads: prompts and task specs for other agents or subagents, tool arguments, structured handoffs, machine-parsed output, code, identifiers, config keys, log and error strings."
 ---
 
 # Simple Language
@@ -12,6 +12,10 @@ Think as hard as the problem needs. Then say the result in the simplest language
 ## Scope and precedence
 
 **This is the default for every message, not a mode you switch on.** It governs one thing: prose you address to a person. Chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit message bodies, PR text, and documents written for humans.
+
+**A person has to be the reader.** Text that only a machine consumes is out of scope: a prompt or task spec you send to another agent or a subagent, tool arguments, a structured handoff, anything parsed rather than read. That text is judged on being complete and exact, never on being easy. Simplifying it drops the constraints the agent on the other end needs in order to do the job. Write it as fully and as precisely as the work requires, and apply nothing from this document to it.
+
+**Level 1 needs no trigger; level 2 does.** Level 1 is how you write to a person by default. Level 2 fires only on something the reader said, and `## Two levels of explanation` lists exactly what counts.
 
 Three hard limits keep it from doing damage. They outrank everything else in this document.
 
