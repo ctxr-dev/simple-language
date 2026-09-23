@@ -76,7 +76,7 @@ Same facts at both levels. What changes is how hard the words are to read.
 
 - **No more words than the level 1 answer.** Count both. Aim under. More words is a harder answer, so a "simpler" version that grew has already failed, whatever its words are.
 - **No word of three syllables or more.** The technical term is the one exception. If you need a long word, you have not found the short one yet. "visible everywhere" becomes "the copy gets it".
-- **Five to ten words a sentence, never past twelve.** One idea each. Active voice with a named actor: "the server waits", never "a wait is performed".
+- **Nine words a sentence at most.** One idea each. Active voice with a named actor: "the server waits", never "a wait is performed". Repeat a noun rather than reaching for a synonym; a reader short on words loses the thread when the name keeps changing.
 - **Keep the technical term and name it.** Say it, then say what happens in easy words. It is the one hard word you are allowed, and the reader must leave knowing what the thing is called.
 - **A number instead of a description.** A number needs no vocabulary at all. "Both read 5, both write 4" beats any sentence about ordering.
 
@@ -384,7 +384,7 @@ Read the draft once, silently, and ask:
 11. Is every qualifier, conditional, quantifier and hedge that I meant still in the text?
 12. Does every table cell still carry the scope its sentence had?
 13. If the counted pass applied, did it come back clean, and is the verdict in the first three lines?
-14. At level 2: no more words than the level 1 answer, no word of three syllables or more except the term, sentences under twelve words?
+14. At level 2: no more words than the level 1 answer, no word of three syllables or more except the term, no sentence past nine words?
 
 Fix what you find, then send. Never show this pass to the user.
 

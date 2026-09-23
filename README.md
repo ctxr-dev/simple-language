@@ -149,7 +149,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 1, plain.** I don't know — I have no information about your production Stripe webhook endpoint's rate limit, so you need to check your own gateway or Stripe config for that number.
 
 > [!TIP]
-> **Level 2, simplest.** I do not know your rate limit. I cannot see your setup. Look in your gateway settings, or in your Stripe webhook page.
+> **Level 2, simplest.** I do not know your rate limit. I cannot see your system. Look in your gateway, or your Stripe webhook page.
 
 **Defining a term**
 
@@ -160,7 +160,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 1, plain.** A race condition is when two threads or processes touch the same data at the same time, and the result depends on which one happens to get there first.
 
 > [!TIP]
-> **Level 2, simplest.** Race condition: two jobs read the same count, 5, at the same time. Both take one away. Both write 4. The count fell by one, not two.
+> **Level 2, simplest.** Race condition: two jobs read the count at the same time. Both see 5. Both take one away. Both write 4. It should be 3.
 
 **Reporting progress**
 
@@ -177,10 +177,10 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 |---|---|---|---|
 | Explaining a concept | 29 words | 11 words | **10 words** |
 | Diagnosing a problem | 16 words | 8 words | **7 words** |
-| Saying you don't know | 44 words | 29 words | **23 words** |
-| Defining a term | 34 words | 29 words | **27 words** |
+| Saying you don't know | 44 words | 29 words | **21 words** |
+| Defining a term | 34 words | 29 words | **25 words** |
 | Reporting progress | 26 words | 19 words | **18 words** |
-| **All five** | **149 words** | **96 words** | **85 words** |
+| **All five** | **149 words** | **96 words** | **81 words** |
 
 Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
 
@@ -190,7 +190,7 @@ Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the
 
 Say "simpler", or "like I'm five", or just say again that you do not understand. You get level 2.
 
-Level 2 writes for someone who barely reads English — a year of it, maybe a thousand words. It never uses more words than the answer you did not understand, and it uses no word of three syllables or more, except the technical term itself. Sentences of five to ten words. Numbers in place of descriptions, because a number needs no vocabulary at all.
+Level 2 writes for someone who barely reads English — a year of it, maybe a thousand words. It never uses more words than the answer you did not understand, and it uses no word of three syllables or more, except the technical term itself. Sentences of nine words at most. Numbers in place of descriptions, because a number needs no vocabulary at all.
 
 Three things it does not do:
 
