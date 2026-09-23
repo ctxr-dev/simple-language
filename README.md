@@ -127,7 +127,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 1, plain.** Eventual consistency means a write is not visible everywhere at once.
 
 > [!TIP]
-> **Level 2, simplest.** Eventual consistency: you write, other copies catch up later.
+> **Level 2, simplest.** Eventual consistency: you write here. The copy gets it later.
 
 **Diagnosing a problem**
 
@@ -138,7 +138,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 1, plain.** Retries multiply load at the worst possible moment.
 
 > [!TIP]
-> **Level 2, simplest.** Retries multiply traffic while the server fails.
+> **Level 2, simplest.** Retries send more work when servers fail.
 
 **Saying you don't know**
 
@@ -149,7 +149,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 1, plain.** I don't know — I have no information about your production Stripe webhook endpoint's rate limit, so you need to check your own gateway or Stripe config for that number.
 
 > [!TIP]
-> **Level 2, simplest.** I don't know your production Stripe webhook rate limit. Check your own gateway settings or your Stripe config — that number is set there.
+> **Level 2, simplest.** I do not know your rate limit. I cannot see your setup. Look in your gateway settings, or in your Stripe webhook page.
 
 **Defining a term**
 
@@ -160,7 +160,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 1, plain.** A race condition is when two threads or processes touch the same data at the same time, and the result depends on which one happens to get there first.
 
 > [!TIP]
-> **Level 2, simplest.** Two workers read the stock count, both see 5, both write 4. Two items shipped, the count dropped by one: a race condition.
+> **Level 2, simplest.** Race condition: two jobs read the same count, 5, at the same time. Both take one away. Both write 4. The count fell by one, not two.
 
 **Reporting progress**
 
@@ -171,16 +171,16 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 1, plain.** The retry logic with exponential backoff is in the payment client, and I am running the integration tests now.
 
 > [!TIP]
-> **Level 2, simplest.** Exponential backoff retries are in the payment client. Integration tests are running; no results yet.
+> **Level 2, simplest.** The payment client now retries with exponential backoff. The integration tests are running. I have no results yet.
 
 | Example | Without | Level 1 | Level 2 |
 |---|---|---|---|
-| Explaining a concept | 29 words | 11 words | **9 words** |
+| Explaining a concept | 29 words | 11 words | **10 words** |
 | Diagnosing a problem | 16 words | 8 words | **7 words** |
 | Saying you don't know | 44 words | 29 words | **23 words** |
-| Defining a term | 34 words | 29 words | **23 words** |
-| Reporting progress | 26 words | 19 words | **15 words** |
-| **All five** | **149 words** | **96 words** | **77 words** |
+| Defining a term | 34 words | 29 words | **27 words** |
+| Reporting progress | 26 words | 19 words | **18 words** |
+| **All five** | **149 words** | **96 words** | **85 words** |
 
 Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
 
@@ -190,12 +190,12 @@ Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the
 
 Say "simpler", or "like I'm five", or just say again that you do not understand. You get level 2.
 
-Level 2 is **easier to read**, and easier means fewer words as well as easier ones. It never uses more words than the answer you did not understand. You do not get more room, so it buys plainness instead: shorter common words, sentences of eight to twelve words, a concrete number in place of an abstract phrase.
+Level 2 writes for someone who barely reads English — a year of it, maybe a thousand words. It never uses more words than the answer you did not understand, and it uses no word of three syllables or more, except the technical term itself. Sentences of five to ten words. Numbers in place of descriptions, because a number needs no vocabulary at all.
 
 Three things it does not do:
 
 - **It does not drop the technical term.** The level 2 answers above still say `eventual consistency`, `race condition`, `exponential backoff`, `rate limit`. You leave knowing what the thing is called.
-- **It does not drop a number or a caveat.** The race condition answer still carries 5 and 4. The "I don't know" answer still refuses to invent a rate limit, and still names where it is set.
+- **It does not drop a number or a caveat.** The race condition answer still carries 5 and 4. The "I don't know" answer still refuses to invent a rate limit, and still names both places to look.
 - **It does not talk down.** Shorter sentences help a reader. A lowered register does not; it measurably reduces how much someone takes in. Those are two separate dials and this turns only one.
 
 ---

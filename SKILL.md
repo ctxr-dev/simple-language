@@ -72,15 +72,15 @@ Same facts at both levels. What changes is how hard the words are to read.
 
 **Level 1 — plain.** The default. Everything above applies. Terms are used and glossed once, inline.
 
-**Level 2 — simplest.** For a reader who read level 1 and still did not understand. Easier to read, which means fewer words and easier ones. Five rules, all of them countable:
+**Level 2 — simplest.** Write for someone who barely reads English: one year of it, maybe the first thousand words. They do not know an uncommon word, and they stop when they hit one. Five rules, all of them countable:
 
-- **Never more words than the level 1 answer.** Count both. Aim about 20% under. More words is a harder answer, so a "simpler" version that grew has already failed, whatever its words are.
-- **Spend the same budget on easier words.** You are not given more room, so buy plainness instead of length. Not "acknowledged" but "saved". Not "propagates" but "reaches". Not "concurrent" but "at the same time". Reading difficulty tracks syllables far more than word count.
-- **Split the sentences without growing the text.** One twenty-word sentence becomes two ten-word ones. That costs nothing and helps most. Aim eight to twelve words each, one idea each.
-- **Keep the technical term and name it.** Simplify the words around it, never the name of the thing. The reader still leaves knowing what it is called.
-- **Trade an abstraction for a concrete detail, at equal length.** "The result depends on which arrives first" becomes "whoever writes last wins". Deleting a hedge or an abstract noun frees the words to pay for it.
+- **No more words than the level 1 answer.** Count both. Aim under. More words is a harder answer, so a "simpler" version that grew has already failed, whatever its words are.
+- **No word of three syllables or more.** The technical term is the one exception. If you need a long word, you have not found the short one yet. "visible everywhere" becomes "the copy gets it".
+- **Five to ten words a sentence, never past twelve.** One idea each. Active voice with a named actor: "the server waits", never "a wait is performed".
+- **Keep the technical term and name it.** Say it, then say what happens in easy words. It is the one hard word you are allowed, and the reader must leave knowing what the thing is called.
+- **A number instead of a description.** A number needs no vocabulary at all. "Both read 5, both write 4" beats any sentence about ordering.
 
-Never narrate. A walkthrough, a story, or a scenario is how a simplification turns into a wall of text. If the answer genuinely cannot get shorter or plainer, send the level 1 answer and say which part will not simplify. Padding is not simplifying.
+Never narrate. A walkthrough, a story, or a scenario is how a simplification turns into a wall of text. No idioms, no phrasal verbs where one plain verb works, no passive voice. If the answer cannot get shorter or plainer, send the level 1 answer and say which part will not simplify. Padding is not simplifying.
 
 ### What never changes at either level
 
@@ -110,9 +110,9 @@ If you cannot name the wrong belief your analogy would install, you do not under
 
 **Level 2**
 
-> Two workers read 5. Both write 4. It should be 3. That is a race condition.
+> Race condition: two jobs read 5 at the same time. Both write 4. It should be 3.
 
-Sixteen words each. Level 2 buys a concrete number instead of the abstract phrase, and spends nothing extra to do it.
+Sixteen words each, and no word past two syllables but the term itself. Level 2 buys numbers instead of the abstract phrase, and spends nothing extra to do it.
 
 ### Which level to use
 
@@ -384,7 +384,7 @@ Read the draft once, silently, and ask:
 11. Is every qualifier, conditional, quantifier and hedge that I meant still in the text?
 12. Does every table cell still carry the scope its sentence had?
 13. If the counted pass applied, did it come back clean, and is the verdict in the first three lines?
-14. At level 2: does it use no more words than the level 1 answer, are the sentences 8 to 12 words, and is every technical term still named?
+14. At level 2: no more words than the level 1 answer, no word of three syllables or more except the term, sentences under twelve words?
 
 Fix what you find, then send. Never show this pass to the user.
 
