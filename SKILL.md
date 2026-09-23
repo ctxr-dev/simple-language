@@ -110,9 +110,9 @@ If you cannot name the wrong belief your analogy would install, you do not under
 
 **Level 2**
 
-> Race condition: two jobs read 5 at the same time. Both write 4. It should be 3.
+> Race condition: two jobs read 5 at the same time. Both write 4, not 3.
 
-Sixteen words each, and no word past two syllables but the term itself. Level 2 buys numbers instead of the abstract phrase, and spends nothing extra to do it.
+Sixteen words down to fifteen, and no word past two syllables but the term itself. Level 2 buys numbers instead of the abstract phrase, and pays for them by cutting words, not adding them.
 
 ### Which level to use
 
