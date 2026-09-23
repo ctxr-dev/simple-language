@@ -116,7 +116,7 @@ Codex inlines the body because it does not expand `@path` imports. Gemini CLI an
 
 Every example below is real, unedited agent output. Same question, same model, same prompt. One agent had this skill loaded, the other did not. Neither was told to be brief.
 
-The third block comes from a separate run. An agent with this skill loaded was handed the level 1 answer, then the reply "explain it like I'm five". Only the bold labels were added here.
+The level 2 block comes from a separate run. An agent with this skill loaded was handed the level 1 answer, then the reply "explain it like I'm five". Only the bold labels were added here.
 
 **Explaining a concept**
 
@@ -124,18 +124,10 @@ The third block comes from a separate run. An agent with this skill loaded was h
 > **No skill.** Eventual consistency means a write is acknowledged before every replica or derived view has it, and the system only promises they all converge if you stop writing long enough.
 
 > [!TIP]
-> **Level 1.** Eventual consistency means a write is not visible everywhere at once.
+> **Level 1, plain.** Eventual consistency means a write is not visible everywhere at once.
 
 > [!TIP]
-> **Level 3.** Say you change your display name to "Ana" at 10:00:00.
-> The write lands on the replica in Frankfurt.
-> A replica is a full copy of your data kept on a second machine.
-> You reload the page and see "Ana".
-> A colleague in Singapore reloads at 10:00:01 and still sees your old name.
-> Their read went to the Singapore replica, and that copy does not have your change yet.
-> At 10:00:03 the change reaches Singapore, and both replicas now show "Ana".
-> You may be reading this as the write failing in Singapore. It did not fail — it succeeded in Frankfurt, and Singapore was three seconds behind it.
-> That gap between "the write succeeded" and "every replica shows it" is what eventual consistency is.
+> **Level 2, simplest.** Eventual consistency: after a write, some copies show it right away. The rest catch up soon.
 
 **Diagnosing a problem**
 
@@ -143,18 +135,10 @@ The third block comes from a separate run. An agent with this skill loaded was h
 > **No skill.** Adding retries doesn't reduce the total work a failing service has to do; it multiplies it.
 
 > [!TIP]
-> **Level 1.** Retries multiply load at the worst possible moment.
+> **Level 1, plain.** Retries multiply load at the worst possible moment.
 
 > [!TIP]
-> **Level 3.** Say the payment service is already failing half the requests it gets, and every client retries a failed call once.
-> In the first second 100 requests arrive, and 50 of them fail.
-> Those 50 come back as retries, so the next second carries 100 new requests plus 50 retries: 150 in total.
-> The service is now 50% above the load it was already failing at, so more of the 150 fail — say 100 of them.
-> Those 100 come back too, and the second after that carries 200.
-> Every extra request still costs a connection, a thread and CPU time, even when the service rejects it.
-> You may be reading this as the retries being wrong in themselves. They are not — the same single retry costs almost nothing while the service is healthy, because almost nothing fails.
-> Retries scale with the failure rate, so they arrive at their largest exactly during the outage, when the service has least to spare.
-> That feedback loop, where failures create retries and retries create more failures, is retry amplification.
+> **Level 2, simplest.** Retries copied every failed request, piling load onto a service already failing.
 
 **Saying you don't know**
 
@@ -162,18 +146,10 @@ The third block comes from a separate run. An agent with this skill loaded was h
 > **No skill.** I don't know the exact production Stripe webhook rate limit, and I have no verified source for it in this session — check your API gateway or webhook endpoint configuration (or ask the team that owns it) rather than relying on a number from me.
 
 > [!TIP]
-> **Level 1.** I don't know — I have no information about your production Stripe webhook endpoint's rate limit, so you need to check your own gateway or Stripe config for that number.
+> **Level 1, plain.** I don't know — I have no information about your production Stripe webhook endpoint's rate limit, so you need to check your own gateway or Stripe config for that number.
 
 > [!TIP]
-> **Level 3.** Picture the one line that would answer this: a route in your gateway config, say `POST /webhooks/stripe`, with a requests-per-second number on it.
-> I have not seen that file, and it is not in this session.
-> The other place the number could live is the endpoint's own settings in your Stripe dashboard.
-> I have not seen that either, so I do not know your limit and will not guess at one.
-> You may be reading this as me not having looked hard enough. That is not it — there is no public source that holds this number for me to look in.
-> Stripe publishes limits for the calls you make out to their API.
-> Those are a different number from the one you asked about, because your question is about calls coming in.
-> The rate limit on an inbound webhook is a property of your own deployment, not of Stripe.
-> Your gateway config and your Stripe endpoint settings are the only two places it exists.
+> **Level 2, simplest.** I don't know that number. I have never seen your production Stripe webhook endpoint. The rate limit is set in your gateway config or in Stripe — look in both.
 
 **Defining a term**
 
@@ -181,20 +157,10 @@ The third block comes from a separate run. An agent with this skill loaded was h
 > **No skill.** A race condition is a bug where a program's outcome depends on the unpredictable timing of two or more concurrent operations touching the same shared state, so an unlucky interleaving produces a wrong result.
 
 > [!TIP]
-> **Level 1.** A race condition is when two threads or processes touch the same data at the same time, and the result depends on which one happens to get there first.
+> **Level 1, plain.** A race condition is when two threads or processes touch the same data at the same time, and the result depends on which one happens to get there first.
 
 > [!TIP]
-> **Level 3.** Say an account locks after 5 failed logins, and this account's counter is at 3.
-> Two wrong passwords arrive at the same moment, and a separate thread handles each one.
-> Run those threads one after the other: the counter goes 3, then 4, then 5, and the account locks.
-> Now let both threads read the counter before either one writes.
-> Thread A reads 3. Thread B reads 3 as well.
-> A adds one and writes 4. B adds one and writes 4.
-> Five failed logins have happened, the counter says 4, and the account is still open.
-> You may be reading this as a cosmetic off-by-one in the counter.
-> It is not — 4 is under the lock threshold of 5, so the lock never fires and the attacker gets a sixth attempt.
-> The gap between reading the counter and writing it back is what let both threads read 3.
-> That gap is what a race condition is.
+> **Level 2, simplest.** Two threads or processes touch the same data at once. Both read the count, 5, subtract one, and write 4. One at a time, it would be 3. The result depends on who gets there first. That is a race condition.
 
 **Reporting progress**
 
@@ -202,42 +168,35 @@ The third block comes from a separate run. An agent with this skill loaded was h
 > **No skill.** Retry logic with exponential backoff is now in place on the payment client, and I am about to run the integration tests to check it works.
 
 > [!TIP]
-> **Level 1.** The retry logic with exponential backoff is in the payment client, and I am running the integration tests now.
+> **Level 1, plain.** The retry logic with exponential backoff is in the payment client, and I am running the integration tests now.
 
 > [!TIP]
-> **Level 3.** Say a charge comes back from the payment gateway with a 503.
-> The payment client catches that, waits 1 second, and sends the same charge again.
-> If the second attempt fails too it waits 2 seconds, then 4, then 8, and gives up after the fourth try.
-> Each wait is double the one before it, and that doubling is the exponential backoff.
-> That is code I have written, not behaviour I have watched run.
-> What I do not know yet is whether it does the same thing against the real gateway.
-> That is what the integration tests I am running now will tell me.
-> You may be reading "running the integration tests" as a last formality before I call this done. It is not — I have no result from them yet, so nothing is confirmed.
-> The state right now: the retry logic with exponential backoff is in the payment client, and the integration tests are mid-run.
+> **Level 2, simplest.** The retry logic is in the payment client. It waits longer after each failure — exponential backoff. The integration tests are running now, so no results yet.
 
-| Example | Without | Level 1 | Change |
+| Example | Without | Level 1 | Level 2 |
 |---|---|---|---|
-| Explaining a concept | 29 words | **11 words** | −62% |
-| Diagnosing a problem | 16 words | **8 words** | −50% |
-| Saying you don't know | 44 words | **29 words** | −34% |
-| Reporting progress | 26 words | **19 words** | −27% |
-| Defining a term | 34 words | **29 words** | −15% |
-| **All five** | **149 words** | **96 words** | **−36%** |
-| Reading ease | 43.7 | **62.2** | plain English |
+| Explaining a concept | 29 words | **11 words** | 16 words |
+| Diagnosing a problem | 16 words | **8 words** | 12 words |
+| Saying you don't know | 44 words | **29 words** | 29 words |
+| Defining a term | 34 words | **29 words** | 41 words |
+| Reporting progress | 26 words | **19 words** | 26 words |
+| **All five** | **149 words** | **96 words** | **124 words** |
 
-Reading ease is the Flesch score. Below 30 needs a university degree to read comfortably; 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
+Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
 
 ---
 
-## Why the third tier is longer
+## Asking for it simpler
 
-Level 3 is not level 1 with smaller words. It changes the **order**: one real case with real values first, the mechanism next, and the name of the thing last. Then it names the wrong reading you might be forming and says why it is wrong.
+Say "simpler", or "like I'm five", or just say again that you do not understand. You get level 2.
 
-That is why those five blocks run to 780 words against 96. An explanation carries the case, the mechanism and the effect. An answer carries one of them and leaves you to infer the rest.
+Level 2 is **easier to read**, and easier means shorter and plainer. Everyday words. Sentences of eight to twelve words. A hard ceiling of about 1.5x the answer you did not understand, so it can never become a wall of text.
 
-Three things it never does. It never drops a technical term — the five still say `eventual consistency`, `replica`, `race condition`, `exponential backoff`, `rate limit`. It never invents a value and lets you read it as measured; every made-up value is introduced with "say". It never talks down, because a lowered register measurably reduces how much a reader takes in, while shorter sentences improve it. Those are two separate dials and this turns only one.
+Three things it does not do:
 
-You get level 3 by asking: "simpler", "like I'm five", or just saying again that you do not understand.
+- **It does not drop the technical term.** The level 2 answers above still say `eventual consistency`, `race condition`, `exponential backoff`, `rate limit`. You leave knowing what the thing is called.
+- **It does not drop a number or a caveat.** The race condition answer still carries 5, 4 and 3. The "I don't know" answer still refuses to invent a rate limit, and still names both places to look.
+- **It does not talk down.** Shorter sentences help a reader. A lowered register does not; it measurably reduces how much someone takes in. Those are two separate dials and this turns only one.
 
 ---
 
@@ -311,7 +270,7 @@ None of that comes from the agent thinking too much. It comes from the agent **w
 
 Fresh agents, same model (Claude Opus), no shared context. One agent in each pair loaded the skill; the other was told not to load any skill. Both got the same prompt otherwise, with no instruction about style, length, or word choice. Every quoted sentence is unedited. Word counts, syllable counts and Flesch scores were computed from the raw text.
 
-**The third tier came from a separate run.** Those blocks were produced later, against the shipped `SKILL.md`, each agent given the level 1 answer and then the reply "explain it like I'm five". They are unedited too, but they were not part of the original paired comparison, and the word counts in the table above exclude them.
+**The level 2 answers came from a separate run.** They were produced later, against the shipped `SKILL.md`, with an agent given the level 1 answer and then the reply "explain it like I'm five". They are unedited too, but they were not part of the original paired comparison, so the reading-ease score above covers level 1 only.
 
 **Two cases barely moved.** Reviewing one line of code came out 6% shorter, and recommending a queue also 6%. In both, the unruled answer was already plain, so there was little to fix. The skill helps most where the topic invites dense prose and least where the answer is already concrete.
 

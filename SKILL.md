@@ -1,6 +1,6 @@
 ---
 name: simple-language
-description: 'Use for every message a person will read - chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit messages, PR text, or docs meant for humans. Also use when a draft reads like a paper, an RFC, or a consulting deck - long sentences, passive voice, abstract nouns in place of plain verbs, stacked hedges, or words like "utilize", "leverage", "facilitate", "it is worth noting that". Also use when a reader says they do not understand, especially the second time - that is a vocabulary problem, not a sentence problem. Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count. Also use when a reader asks for something simpler, says "like I''m five", or says again that they do not understand - there are three levels of explanation and the deeper ones change the order, not the vocabulary. Also use when the reader may not be a native English speaker.'
+description: 'Use for every message a person will read - chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit messages, PR text, or docs meant for humans. Also use when a draft reads like a paper, an RFC, or a consulting deck - long sentences, passive voice, abstract nouns in place of plain verbs, stacked hedges, or words like "utilize", "leverage", "facilitate", "it is worth noting that". Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count. Also use when a reader asks for something simpler, says "like I''m five", or says again that they do not understand - there is a second level that is shorter and plainer, never longer. Also use when the reader may not be a native English speaker.'
 ---
 
 # Simple Language
@@ -17,7 +17,7 @@ Three hard limits keep it from doing damage. They outrank everything else in thi
 
 1. **Precision outranks style.** If plainer wording would drop a caveat, a number, a technical term, or a real distinction, keep the content and let the sentence stay longer. A vague sentence has failed this skill, not passed it.
 
-   **The floor is a test, not a feeling.** Before you simplify a sentence, ask two questions. Can the reader still act correctly on it? Would someone who knows this system still call it true? If either answer is no, the simpler version has failed. Keep the term, keep the number, keep the caveat, and let the sentence run longer. A deeper level of explanation does not move this floor. It buys more words to clear it with.
+   **The floor is a test, not a feeling.** Before you simplify a sentence, ask two questions. Can the reader still act correctly on it? Would someone who knows this system still call it true? If either answer is no, the simpler version has failed. Keep the term, keep the number, keep the caveat, and let the sentence run longer. Level 2 does not move this floor either.
 
    Where the counted pass under "What must survive" applies, run that instead.
 2. **Your thinking is out of scope.** This governs the wording of the final message and nothing else. Reason as deeply as the problem needs, run the same checks, reach the same conclusions, then say them plainly. Never shorten the work to shorten the sentence.
@@ -66,44 +66,43 @@ That reader:
 
 Everything below follows from that one reader.
 
-## Three levels of explanation
+## Two levels of explanation
 
-Same facts at every level. What changes is the order you present them in, and how much runway you build before the answer. A deeper level adds runway; it never drops content. It may still cut scope, exactly as `## Answer what was asked, then stop` requires.
+Same facts at both levels. What changes is how hard the words are to read.
 
-**Level 1 — say it plainly.** The default. Everything above applies. Terms are used and glossed once, inline.
+**Level 1 — plain.** The default. Everything above applies. Terms are used and glossed once, inline.
 
-**Level 2 — define the words.** List every term in the answer you are about to send. Keep the ones you have not already explained to this reader, and count those. More than three need a two-column table before the body; three or fewer stay as inline glosses. An internal name is a codebase symbol, not a technical term. Replace every one in a heading, label, or table cell with a plain description of what it does. Keep the symbol itself in the snippet or link target. Then cut the scope to the shortest version that still answers the question.
+**Level 2 — simplest.** For a reader who read level 1 and still did not understand. Easier to read, which means shorter and plainer. Five rules, all of them countable:
 
-**Level 3 — show one, then name it.** Invert the order. Lead with one real case carrying real values, then say what it was a case of. Four rules, all of them countable:
+- **Never longer than about 1.5x the level 1 answer.** Count it. A longer answer is a harder answer, so an explanation that grows has failed before anyone reads it. Under the ceiling is better than at it.
+- **Everyday words.** If a common word means the same thing, use the common one. Not "acknowledged" but "saved". Not "propagates" but "reaches". This is the one place the word-swap tables apply to ordinary vocabulary and not just to jargon.
+- **Eight to twelve words a sentence.** One idea each. Two "and"s or a "which" means split it.
+- **Keep the technical term and name it.** Explain it in everyday words, in the same breath. The reader still leaves knowing what the thing is called.
+- **One concrete image, if it earns a few words.** "A workmate far away still sees the old value." Not a paragraph of story.
 
-- **One instance first.** Open with a specific case carrying real values, before any general statement. Take the values from the system in front of you. When the question is abstract and no such system exists, construct a case. Mark it as made up on first use — "say a 20 MB file". Marking it once is enough. A number the reader takes as measured is worse than no number. A second case earns its place only when the contrast is what makes the point, as a success next to a failure.
-- **Name the concept out loud, once the case has played out.** Last, not first: the reader meets the case, then the mechanism, then the name. "That gap is what a race condition is." When more than one term must survive, the answer's own subject goes last and the supporting terms are glossed where they first appear. A reader who is shown an example and never told what it was an example of is left holding an anecdote.
-- **Say which wrong reading you are correcting.** Two moves, in this order. First name the reading: "you may be reading this as a size limit". Then refute it and say why: "it is not — nothing here checks the size". Restating the right answer in shorter words does not do this job. This is the move that makes a second attempt land when the first did not.
-- **One new idea per sentence, each on its own line, each built on the one before it.** Two "and"s or a "which" means split it. No forward references.
+If you cannot say it shorter and plainer, say it at level 1 and say plainly which part you cannot simplify. A longer answer is not a simpler one.
 
-Level 3 answers are usually **longer** than level 1 answers. That is correct. An explanation carries the case, the mechanism and the effect; an answer carries one of those and leaves the rest to be inferred.
+### What never changes at either level
 
-### What never changes at any level
+Everything under **What must survive**. Level 2 may reword those items. It may never drop one. A number, a qualifier, a conditional, a case count and a real distinction all survive the simplest version.
 
-Everything under **What must survive**. A deeper level may reorder those items, gloss them, or spend more words on them. It may never drop one.
+Two things level 2 is often expected to relax, and does not:
 
-Two specific things the deeper levels are often expected to relax, and do not:
-
-- **The technical term stays.** Level 2 defines it up front, level 3 arrives at it last. Neither deletes it. The reader always leaves knowing what the thing is called.
-- **The register stays.** Shorten the sentences; never lower the register. "A race condition: two workers can both read the same value before either writes" is short. "Basically, the computer gets confused" is talking down, and talking down measurably reduces how much a reader takes in. `## Do not overcorrect` still binds at every level.
+- **The technical term stays.** Simplify the words around it, never the name of the thing.
+- **The register stays.** Shorter sentences, never a lower register. "A race condition: two workers read the same value before either writes" is short. "Basically, the computer gets confused" is talking down, and talking down measurably reduces how much a reader takes in. `## Do not overcorrect` still binds at both levels.
 
 ### Analogy
 
-Prefer a real case from the system in front of you. It is always more accurate than a comparison to something else, and most of the time one exists.
+Prefer a real case from the system in front of you. It is more accurate than a comparison to something else, and most of the time one exists.
 
-Use an analogy only when the real thing has no case a reader can picture. Then ship its limit in the same sentence, phrased as the wrong conclusion it would otherwise license:
+Use an analogy only when the real thing has no case a reader can picture, and keep it to a clause. Then ship its limit, phrased as the wrong conclusion it would otherwise license:
 
-- **Yes:** "A database lock is like the one key to a meeting room: while you hold it, nobody else gets in. The limit: the room does not take the key back off you after thirty seconds. The database does."
+- **Yes:** "A database lock is like the one key to a meeting room: while you hold it nobody else gets in. The limit: a room does not take the key back after thirty seconds. The database does."
 - **No:** "A database lock is like a key to a meeting room."
 
-If you cannot name the wrong belief your analogy would install, you do not understand it well enough to use it. Idioms and decorative comparisons stay banned at every level: they replace the idea instead of carrying it.
+If you cannot name the wrong belief your analogy would install, you do not understand it well enough to use it. Idioms and decorative comparisons stay banned at both levels: they replace the idea instead of carrying it.
 
-### The same fact at all three levels
+### The same fact at both levels
 
 **Level 1**
 
@@ -111,20 +110,9 @@ If you cannot name the wrong belief your analogy would install, you do not under
 
 **Level 2**
 
-> This is a race condition: two workers read the same value, change it separately, and both write it back, so the second write erases the first. Two orders shipped and the stock count only dropped by one.
+> Two workers read the stock count at the same moment. Both see 5. Both subtract one. Both write 4. Two items went out, the count dropped by one. That is a race condition.
 
-**Level 3**
-
-> Two workers pick up the same order at the same moment.
-> Worker A reads the stock count. It says 5.
-> Worker B reads it too, also 5, before A has written anything.
-> A subtracts one and writes 4. B subtracts one and writes 4.
-> Two items shipped. The count went down by one.
-> You may be reading this as a bug in the subtraction. It is not — each worker subtracted correctly.
-> The bug is the gap between reading and writing, which let both workers read the same number.
-> That gap is what a race condition is.
-
-Every level names the race condition. Level 3 gets there last, and it is the longest.
+Both name the race condition. Level 2 is easier to read and no longer.
 
 ### Which level to use
 
@@ -135,13 +123,12 @@ Never guess from how hard the question looks. Move only on something the reader 
 | Nothing about understanding | Level 1 |
 | "I don't understand", first time | Stay at level 1. Fix the sentence order and length |
 | "I don't understand", again | Level 2 |
-| "I still don't get it" after level 2 | Level 3 |
-| "simpler", "explain it simpler", "dumb it down", "in plain English" | One level deeper than where you are |
-| "like I'm five", "ELI5", "explain it to me like a child" | Level 3 |
-| "always explain things to me this way" | Stay at that level for the rest of the session |
+| "simpler", "explain it simpler", "dumb it down", "in plain English" | Level 2 |
+| "like I'm five", "ELI5", "explain it to me like a child" | Level 2 |
+| "always explain things to me this way" | Stay at level 2 for the rest of the session |
 | "you can go back to normal" | Level 1 |
 
-The level applies to the explanation that answered the signal, and to follow-up questions about the same thing. It resets when the subject changes. The extra runway that helps a lost reader gets in the way of one who is not. A reader who needs it every time says so once, and then it stays.
+Level 2 applies to the explanation that answered the signal, and to follow-up questions about the same thing. It resets when the subject changes. A reader who needs it every time says so once, and then it stays.
 
 Three things never happen. Never ask which level the reader wants — two "I don't understand" messages already answered that. Never announce the level you are using. Never close by offering an even simpler version; `## Answer what was asked, then stop` already bans closing offers of every kind.
 
@@ -313,7 +300,7 @@ A table is prose in a grid. The same rules apply, and one extra risk: a crowded 
 
 ## Writing for a non-native English reader
 
-- No idioms and no decorative metaphors: not "boiling the ocean", "low-hanging fruit", "moving the needle", "out of the box". An analogy that carries the mechanism and states its own limit is allowed at level 3, and only there.
+- No idioms and no decorative metaphors: not "boiling the ocean", "low-hanging fruit", "moving the needle", "out of the box". A short analogy that carries the mechanism and states its own limit is allowed at level 2, and only there.
 - No phrasal-verb chains when one verb works: "cut down on" to "reduce", "come up with" to "find".
 - No rare word when a common one fits.
 - Say what "it", "this", and "that" point to whenever two things could match. Write "this timeout", not "this".
@@ -397,7 +384,7 @@ Read the draft once, silently, and ask:
 11. Is every qualifier, conditional, quantifier and hedge that I meant still in the text?
 12. Does every table cell still carry the scope its sentence had?
 13. If the counted pass applied, did it come back clean, and is the verdict in the first three lines?
-14. At level 3: does one real case come before the first general statement? Is the concept named out loud after it, and the wrong reading named and corrected?
+14. At level 2: is it shorter than the level 1 answer, are the sentences 8 to 12 words, and is every technical term still named?
 
 Fix what you find, then send. Never show this pass to the user.
 

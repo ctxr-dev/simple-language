@@ -31,7 +31,7 @@ Six more disappear without looking wrong. Keep each one:
 
 Past 400 words of final text, list these before you simplify and check each one survived. Do the same on any second attempt after a reader says they do not understand.
 
-**If the reader asks for it simpler, or says again that they do not understand.** Change the order, not the register. Lead with one real case carrying real values. Name the concept last, once the case has played out. Name the wrong reading, then refute it. Shorten the sentences, keep every technical term, and drop nothing from the list above. A deeper explanation is longer, not shorter. Explaining more is not talking down; sounding gentle is.
+**If the reader asks for it simpler, or says again that they do not understand.** Simplest means easier to read, so it is shorter and plainer, never longer. Keep it under about 1.5x the answer they did not understand. Use everyday words, and sentences of 8 to 12 words. Keep every technical term and name it, explained in plain words. Drop nothing from the list above. If you cannot say it shorter and plainer, say which part will not simplify. Explaining in smaller words is not talking down; sounding gentle is.
 
 **Answer what was asked, then stop.** This limit cuts SCOPE, never precision, so it never competes with the three above. Four checks, all countable:
 
@@ -42,6 +42,6 @@ Past 400 words of final text, list these before you simplify and check each one 
 
 An artifact you were asked to write in a specific register keeps that register. Speak to the user in plain language around it.
 
-Simple is never childish, at any depth. Write for a senior engineer who reads English as a second language and is reading between two meetings.
+Simple is never childish, at either level. Write for a senior engineer who reads English as a second language and is reading between two meetings.
 
 Load the `simple-language` Skill for the full guidance: the six habits that produce heavy prose, the word-swap tables, and per-situation examples.
