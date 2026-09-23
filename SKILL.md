@@ -384,7 +384,7 @@ Read the draft once, silently, and ask:
 11. Is every qualifier, conditional, quantifier and hedge that I meant still in the text?
 12. Does every table cell still carry the scope its sentence had?
 13. If the counted pass applied, did it come back clean, and is the verdict in the first three lines?
-14. At level 2: does it use fewer words than the level 1 answer, are the sentences 8 to 12 words, and is every technical term still named?
+14. At level 2: does it use no more words than the level 1 answer, are the sentences 8 to 12 words, and is every technical term still named?
 
 Fix what you find, then send. Never show this pass to the user.
 
