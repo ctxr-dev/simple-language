@@ -37,7 +37,7 @@ Restart Claude Code. Your agent applies it on its own from then on. You can also
 
 **Project-level rule** — put the rule at `.claude/rules/simple-language.md` in your repo root, or paste its contents into `CLAUDE.md`.
 
-**Other agents** — Codex, Cursor, Copilot CLI and Gemini CLI read `AGENTS.md`. Paste in the contents of [`rules/simple-language.md`](rules/simple-language.md).
+**Other agents** — Codex, omp, Cursor, Copilot, Gemini CLI, Windsurf and OpenCode each get a ready-made block in the next section.
 
 **Windows PowerShell** — use `$env:USERPROFILE\.claude\rules` in place of `~/.claude/rules`.
 
@@ -46,6 +46,67 @@ Restart Claude Code. Your agent applies it on its own from then on. You can also
 **Try it without installing** — `npx skills use ctxr-dev/simple-language | claude`
 
 **Inspect first** — `npx skills add ctxr-dev/simple-language --list`
+
+</details>
+
+<details>
+<summary>Install the Rule in another agent — Codex, omp, Cursor, Copilot, Gemini CLI, Windsurf, OpenCode</summary>
+
+Every block installs the same file: [`rules/simple-language.md`](rules/simple-language.md). Run the one for your agent once. All of them are user-global unless the comment says project.
+
+**Agents with a rules directory.** Each needs its own frontmatter to mark the rule as always-on, so the block writes that frontmatter and then appends the rule body.
+
+omp:
+
+```bash
+mkdir -p ~/.omp/agent/rules
+{ printf -- '---\nalwaysApply: true\n---\n\n'
+  curl -fsSL https://raw.githubusercontent.com/ctxr-dev/simple-language/main/rules/simple-language.md
+} > ~/.omp/agent/rules/simple-language.md
+```
+
+`alwaysApply: true` is not optional here. omp discovers a rule file that has no `alwaysApply`, no `description` and no trigger condition, then drops it — the file would sit on disk doing nothing. For one project only, write to `.omp/rules/simple-language.md` instead.
+
+Cursor (project):
+
+```bash
+mkdir -p .cursor/rules
+{ printf -- '---\ndescription: Plain, direct language in every message a person reads\nglobs:\nalwaysApply: true\n---\n\n'
+  curl -fsSL https://raw.githubusercontent.com/ctxr-dev/simple-language/main/rules/simple-language.md
+} > .cursor/rules/simple-language.mdc
+```
+
+Windsurf (project):
+
+```bash
+mkdir -p .windsurf/rules
+{ printf -- '---\ntrigger: always_on\n---\n\n'
+  curl -fsSL https://raw.githubusercontent.com/ctxr-dev/simple-language/main/rules/simple-language.md
+} > .windsurf/rules/simple-language.md
+```
+
+**Agents that read one Markdown context file.** Same block for all of them — set `FILE` from the table, then run it. It is safe to re-run: the marker pair is deleted and rewritten, so you never get two copies.
+
+```bash
+FILE=~/.codex/AGENTS.md            # pick your path from the table below
+
+mkdir -p "$(dirname "$FILE")" && touch "$FILE"
+sed -i.bak '/<!-- BEGIN simple-language -->/,/<!-- END simple-language -->/d' "$FILE" && rm -f "$FILE.bak"
+{ echo '<!-- BEGIN simple-language -->'
+  curl -fsSL https://raw.githubusercontent.com/ctxr-dev/simple-language/main/rules/simple-language.md
+  echo '<!-- END simple-language -->'
+} >> "$FILE"
+```
+
+| Agent | `FILE` | Scope |
+|---|---|---|
+| Codex CLI | `~/.codex/AGENTS.md` | user |
+| Gemini CLI | `~/.gemini/GEMINI.md` | user |
+| OpenCode | `~/.config/opencode/AGENTS.md` | user |
+| GitHub Copilot | `.github/copilot-instructions.md` | project |
+| Any other agent that reads `AGENTS.md` | `AGENTS.md` | project |
+
+Codex inlines the body because it does not expand `@path` imports. Gemini CLI and omp do expand them, so you can point at a clone instead of copying — `@~/src/simple-language/rules/simple-language.md` on its own line.
 
 </details>
 
@@ -106,6 +167,20 @@ Every pair below is real, unedited agent output. Same question, same model, same
 | Reading ease | 43.7 | **62.2** | plain English |
 
 Reading ease is the Flesch score. Below 30 needs a university degree to read comfortably; 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
+
+---
+
+## When plain is still not enough
+
+Sometimes the plain version still does not land. Ask for it simpler, or say "like I'm five", and the skill changes the **order** of the explanation rather than the words. It leads with one real case, names the concept afterwards, and says which wrong reading it is correcting.
+
+> [!CAUTION]
+> This is a race condition. Two workers can update the same row at the same time.
+
+> [!TIP]
+> Two workers pick up the same order at the same moment. Worker A reads the stock count. It says 5. Worker B reads it too, also 5, before A has written anything. A subtracts one and writes 4. B subtracts one and writes 4. Two items shipped. The count went down by one. You may be reading this as a bug in the subtraction. It is not — each worker subtracted correctly. The bug is the gap between reading and writing, which let both workers read the same number. That gap is what a race condition is.
+
+The deeper version is **longer**, and it still says "race condition". It adds runway; it never takes content away. Writing down to the reader is banned at every level, because it measurably reduces how much a reader takes in.
 
 ---
 
@@ -189,7 +264,7 @@ This is a demonstration, not a benchmark.
 
 ```
 SKILL.md                    the skill your agent reads
-rules/simple-language.md    the always-on rule, 364 words
+rules/simple-language.md    the always-on rule, loaded every turn
 README.md                   this file
 references/word-swaps.md    the full word list, plus the words to leave alone
 LICENSE                     MIT
