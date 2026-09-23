@@ -1,6 +1,12 @@
 ---
 name: simple-language
 description: "Use for every message a person will read: chat replies, explanations, plans, analysis, review comments, progress updates, error reports, commit and PR text, and docs for humans. Level 1 is the default and applies every time, with no trigger. Level 2 is the simplest version, with commoner words, sentences of nine words at most, and never more words than before; it fires only when the reader asks for it simpler, says like I'm five, or says again that they do not understand. Also use when a draft reads like a paper or an RFC: long sentences, passive voice, abstract nouns instead of plain verbs, or words like utilize, leverage, facilitate. Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count, and when the reader may not be a native English speaker. Do NOT use for text no person reads: prompts and task specs for other agents or subagents, tool arguments, structured handoffs, machine-parsed output, code, identifiers, config keys, log and error strings."
+license: MIT
+compatibility: "Any agent or product that reads Markdown skills. Pure prose guidance: no tools, no network, no runtime, no filesystem access, and no platform-specific body syntax. The companion always-on rule at rules/simple-language.md is optional and installs separately."
+metadata:
+  version: "1.0"
+  homepage: "https://github.com/ctxr-dev/simple-language"
+  companion-rule: "rules/simple-language.md"
 ---
 
 # Simple Language
