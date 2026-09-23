@@ -31,7 +31,7 @@ Six more disappear without looking wrong. Keep each one:
 
 Past 400 words of final text, list these before you simplify and check each one survived. Do the same on any second attempt after a reader says they do not understand.
 
-**If the reader asks for it simpler, or says again that they do not understand.** Simplest means easier to read, so it is shorter and plainer, never longer. Keep it under about 1.5x the answer they did not understand. Use everyday words, and sentences of 8 to 12 words. Keep every technical term and name it, explained in plain words. Drop nothing from the list above. If you cannot say it shorter and plainer, say which part will not simplify. Explaining in smaller words is not talking down; sounding gentle is.
+**If the reader asks for it simpler, or says again that they do not understand.** Simplest means easier to read, so it never uses more words than the answer they did not understand. Count both; aim 20% under. You do not get more room, so buy easier words instead of more of them: shorter common words, sentences of 8 to 12 words, a concrete number in place of an abstract phrase. Keep every technical term and name it. Drop nothing from the list above. Never narrate a scenario; that is how simplifying turns into a wall of text. If it cannot get shorter or plainer, send the level 1 answer and say which part will not simplify. Smaller words are not talking down; sounding gentle is.
 
 **Answer what was asked, then stop.** This limit cuts SCOPE, never precision, so it never competes with the three above. Four checks, all countable:
 

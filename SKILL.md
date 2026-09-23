@@ -72,15 +72,15 @@ Same facts at both levels. What changes is how hard the words are to read.
 
 **Level 1 — plain.** The default. Everything above applies. Terms are used and glossed once, inline.
 
-**Level 2 — simplest.** For a reader who read level 1 and still did not understand. Easier to read, which means shorter and plainer. Five rules, all of them countable:
+**Level 2 — simplest.** For a reader who read level 1 and still did not understand. Easier to read, which means fewer words and easier ones. Five rules, all of them countable:
 
-- **Never longer than about 1.5x the level 1 answer.** Count it. A longer answer is a harder answer, so an explanation that grows has failed before anyone reads it. Under the ceiling is better than at it.
-- **Everyday words.** If a common word means the same thing, use the common one. Not "acknowledged" but "saved". Not "propagates" but "reaches". This is the one place the word-swap tables apply to ordinary vocabulary and not just to jargon.
-- **Eight to twelve words a sentence.** One idea each. Two "and"s or a "which" means split it.
-- **Keep the technical term and name it.** Explain it in everyday words, in the same breath. The reader still leaves knowing what the thing is called.
-- **One concrete image, if it earns a few words.** "A workmate far away still sees the old value." Not a paragraph of story.
+- **Never more words than the level 1 answer.** Count both. Aim about 20% under. More words is a harder answer, so a "simpler" version that grew has already failed, whatever its words are.
+- **Spend the same budget on easier words.** You are not given more room, so buy plainness instead of length. Not "acknowledged" but "saved". Not "propagates" but "reaches". Not "concurrent" but "at the same time". Reading difficulty tracks syllables far more than word count.
+- **Split the sentences without growing the text.** One twenty-word sentence becomes two ten-word ones. That costs nothing and helps most. Aim eight to twelve words each, one idea each.
+- **Keep the technical term and name it.** Simplify the words around it, never the name of the thing. The reader still leaves knowing what it is called.
+- **Trade an abstraction for a concrete detail, at equal length.** "The result depends on which arrives first" becomes "whoever writes last wins". Deleting a hedge or an abstract noun frees the words to pay for it.
 
-If you cannot say it shorter and plainer, say it at level 1 and say plainly which part you cannot simplify. A longer answer is not a simpler one.
+Never narrate. A walkthrough, a story, or a scenario is how a simplification turns into a wall of text. If the answer genuinely cannot get shorter or plainer, send the level 1 answer and say which part will not simplify. Padding is not simplifying.
 
 ### What never changes at either level
 
@@ -110,9 +110,9 @@ If you cannot name the wrong belief your analogy would install, you do not under
 
 **Level 2**
 
-> Two workers read the stock count at the same moment. Both see 5. Both subtract one. Both write 4. Two items went out, the count dropped by one. That is a race condition.
+> Two workers read 5. Both write 4. It should be 3. That is a race condition.
 
-Both name the race condition. Level 2 is easier to read and no longer.
+Sixteen words each. Level 2 buys a concrete number instead of the abstract phrase, and spends nothing extra to do it.
 
 ### Which level to use
 
@@ -384,7 +384,7 @@ Read the draft once, silently, and ask:
 11. Is every qualifier, conditional, quantifier and hedge that I meant still in the text?
 12. Does every table cell still carry the scope its sentence had?
 13. If the counted pass applied, did it come back clean, and is the verdict in the first three lines?
-14. At level 2: is it shorter than the level 1 answer, are the sentences 8 to 12 words, and is every technical term still named?
+14. At level 2: does it use fewer words than the level 1 answer, are the sentences 8 to 12 words, and is every technical term still named?
 
 Fix what you find, then send. Never show this pass to the user.
 
