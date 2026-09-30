@@ -129,6 +129,9 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > [!TIP]
 > **Level 2, simplest.** Eventual consistency: you write here. The copy gets it later.
 
+> [!NOTE]
+> **Writing as the user, a teammate asks in a thread what eventually consistent means in the design doc.** eventual consistency means a write is not visable everywhere at once
+
 **Diagnosing a problem**
 
 > [!CAUTION]
@@ -139,6 +142,9 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 
 > [!TIP]
 > **Level 2, simplest.** Retries send more work when servers fail.
+
+> [!NOTE]
+> **Writing as the user, an incident thread asks why it got worse after retries were turned on.** retries multiply load at the worst possible moment
 
 **Saying you don't know**
 
@@ -151,6 +157,11 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > [!TIP]
 > **Level 2, simplest.** I do not know your rate limit. I cannot see your system. Look in your gateway, or your Stripe webhook page.
 
+> [!NOTE]
+> **Writing as the user, a DM asks for the prod rate limit on the stripe webhook.** i dont know, i have no info on the prod stripe webhook rate limit
+>
+> you need to check the gateway or the stripe config for that numbr
+
 **Defining a term**
 
 > [!CAUTION]
@@ -162,6 +173,9 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > [!TIP]
 > **Level 2, simplest.** Race condition: two jobs read the count at the same time. Both see 5. Both take one away. Both write 4. It should be 3.
 
+> [!NOTE]
+> **Writing as the user, a PM asks in a ticket comment what race condition means here.** a race condition is when two threads or processes touch the same data at the same time, and the result depends on which one hapens to get there first
+
 **Reporting progress**
 
 > [!CAUTION]
@@ -172,6 +186,11 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 
 > [!TIP]
 > **Level 2, simplest.** The payment client now retries with exponential backoff. The integration tests are running. I have no results yet.
+
+> [!NOTE]
+> **Writing as the user, the user posts progress as a ticket comment.** retry logic with exponential backoff is in the payment client
+>
+> runing the integration tests now
 
 | Example | Without | Level 1 | Level 2 |
 |---|---|---|---|
