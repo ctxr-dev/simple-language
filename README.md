@@ -116,9 +116,9 @@ Codex inlines the body because it does not expand `@path` imports. Gemini CLI an
 
 ## See the difference
 
-Every example below is real, unedited agent output. Same question, same model, same prompt. One agent had this skill loaded, the other did not. Neither was told to be brief.
+Every example below is real, unedited agent output. Same question, same model, same prompt. One agent had this skill loaded, the other did not. Neither was told to be brief, except in the last three examples, as [How this was measured](#how-this-was-measured) explains.
 
-The level 2 block comes from a separate run. An agent with this skill loaded was handed the level 1 answer, then the reply "explain it like I'm five". Only the bold labels were added here.
+The level 2 block comes from a separate run. An agent with this skill loaded was handed the level 1 answer, then the reply "explain it like I'm five". The writing-as-the-user block comes from another separate run. Only the bold labels were added here.
 
 **Explaining a concept**
 
@@ -194,6 +194,52 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 >
 > runing the integration tests now
 
+**Answering yes or no**
+
+> [!CAUTION]
+> **No skill.** Usually yes, if the migration is backward compatible (for example adding a nullable column or a new table, and not dropping or renaming anything the running code still uses) and it doesn't take long-held locks on busy tables, but otherwise you should use an expand-and-contract approach or schedule downtime.
+
+> [!TIP]
+> **Level 1, plain.** Yes, but only if the migration is backward compatible with the code that is running now (for example adding a nullable column or an index built without a long table lock), because a migration that locks a table, or renames or drops something the live app still uses, will block or break requests.
+
+> [!TIP]
+> **Level 2, simplest.** Yes, but only if the migration is backward compatible. The code that runs now must still work. Adding a nullable column is safe. So is an index with no long table lock. A table lock makes requests wait. Rename or drop what the app uses: requests break.
+
+> [!NOTE]
+> **Writing as the user, a teammate asks in slack if they can run the migration while prod is serving traffic.** yes, but only if the migration is backward compatible with the code that is runing now. for example adding a nullable column or an index built without a long table lock
+>
+> because a migration that locks a table, or renames or drops something the live app still uses, will block or break requests
+
+**Explaining an error**
+
+> [!CAUTION]
+> **No skill.** It means every connection in the service's database (or other backend) connection pool is already in use, so new requests have to wait or fail until a connection is returned, which usually points to slow queries, leaked connections that are never closed, or more concurrent load than the pool size allows.
+
+> [!TIP]
+> **Level 1, plain.** "Connection pool exhausted" means every connection in the service's pool is in use, so a new request has to wait for one to free up or fails with that error.
+
+> [!TIP]
+> **Level 2, simplest.** Connection pool exhausted means the pool is full. Every connection is in use. A new request must wait. Or it fails with this error.
+
+> [!NOTE]
+> **Writing as the user, an on-call engineer asks in the incident channel what connection pool exhausted means in the logs.** that means every connection in the service's pool is in use, so a new requst has to wait for one to free up or fails with that error
+
+**Explaining a trade-off**
+
+> [!CAUTION]
+> **No skill.** Every index has to be updated on each insert, update and delete, so indexing every column slows writes, uses a lot of disk and memory, and gives the query planner more options to choose badly from, while most of those indexes never get used by your real queries.
+
+> [!TIP]
+> **Level 1, plain.** Every index makes each insert, update and delete slower because the database must update all of them, and each one takes disk and memory, so you should index only the columns your queries filter, join or sort on.
+
+> [!TIP]
+> **Level 2, simplest.** Each index makes every insert, update and delete slower. The database must update every index each time. Each index also takes disk and memory. Index only columns queries filter, join or sort on.
+
+> [!NOTE]
+> **Writing as the user, a reviewer asks in a PR comment why not just index every column.** every index makes each insert, update and delete slowr because the database has to update all of them, and each one takes disk and memory
+>
+> so you should index only the columns your queries filter, join or sort on
+
 | Example | Without | Level 1 | Level 2 | As the user |
 |---|---|---|---|---|
 | Explaining a concept | 29 words | 11 words | **10 words** | 11 words |
@@ -201,9 +247,12 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 | Saying you don't know | 44 words | 29 words | **21 words** | 27 words |
 | Defining a term | 34 words | 29 words | **25 words** | 29 words |
 | Reporting progress | 26 words | 19 words | **18 words** | 15 words |
-| **All five** | **149 words** | **96 words** | **81 words** | **90 words** |
+| Answering yes or no | 49 words | 53 words | **47 words** | 53 words |
+| Explaining an error | 51 words | 30 words | **24 words** | 28 words |
+| Explaining a trade-off | 48 words | 38 words | **33 words** | 39 words |
+| **All eight** | **297 words** | **217 words** | **185 words** | **210 words** |
 
-Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
+Across the first five examples, level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
 
 The writing-as-the-user drafts come from a separate run, contain deliberate typos, and are not scored for reading ease.
 
@@ -314,7 +363,9 @@ Fresh agents, same model (Claude Opus), no shared context. One agent in each pai
 
 **The level 2 answers came from a separate run.** They were produced later, against the shipped `SKILL.md`, with an agent given the level 1 answer and then the reply "explain it like I'm five". They are unedited too, but they were not part of the original paired comparison, so the reading-ease score above covers level 1 only.
 
-**The writing-as-the-user drafts came from a separate run too.** They were produced against the shipped `SKILL.md`. Each fresh subagent got the situation and the facts of the level 1 answer, and nothing else. Drafts that failed the automatic checks (a dash, a heading, a colon in prose, a changed number or term, mixed casing) were regenerated, not edited.
+**The writing-as-the-user drafts came from a separate run too.** They were produced against the shipped `SKILL.md`. Each fresh subagent got the situation and the facts of the level 1 answer, and nothing else. Drafts that failed the automatic checks (a dash, a heading, a colon in prose, a changed number or term, a dropped causal word, mixed casing) were regenerated, not edited. So was a level 2 answer that came out longer than its level 1 answer.
+
+**The last three examples came from a later run.** Both agents got the same question and the same extra line, "Reply in one sentence.", so they are shorter by request, not by style. They are unedited, and they are not part of the reading-ease score. In the yes-or-no example, level 1 came out longer than the answer without the skill, because it kept the reason a migration breaks requests.
 
 **Two cases barely moved.** Reviewing one line of code came out 6% shorter, and recommending a queue also 6%. In both, the unruled answer was already plain, so there was little to fix. The skill helps most where the topic invites dense prose and least where the answer is already concrete.
 
