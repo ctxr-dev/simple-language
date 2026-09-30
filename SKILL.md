@@ -1,10 +1,10 @@
 ---
 name: simple-language
-description: "Use for every message a person will read: chat replies, explanations, plans, analysis, review comments, progress updates, error reports, commit and PR text, and docs for humans. Level 1 is the default and applies every time, with no trigger. Level 2 is the simplest version, with commoner words, sentences of nine words at most, and never more words than before; it fires only when the reader asks for it simpler, says like I'm five, or says again that they do not understand. Also use when a draft reads like a paper or an RFC: long sentences, passive voice, abstract nouns instead of plain verbs, or words like utilize, leverage, facilitate. Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count, and when the reader may not be a native English speaker. Do NOT use for text no person reads: prompts and task specs for other agents or subagents, tool arguments, structured handoffs, machine-parsed output, code, identifiers, config keys, log and error strings."
+description: "Use for every message a person will read: chat replies, explanations, plans, analysis, review comments, progress updates, error reports, commit and PR text, and docs for humans. Level 1 is the default and applies every time, with no trigger. Level 2 is the simplest version, with commoner words, sentences of nine words at most, and never more words than before; it fires only when the reader asks for it simpler, says like I'm five, or says again that they do not understand. Also use when the user asks you to write text they will send to another person as their own, like a chat message, ticket, comment, reply, email or question: write it the way a hurried human types. Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count. Do NOT use for text no person reads: prompts and task specs for other agents or subagents, tool arguments, structured handoffs, machine-parsed output, code, identifiers, config keys, log and error strings."
 license: MIT
-compatibility: "Any agent or product that reads Markdown skills. Pure prose guidance: no tools, no network, no runtime, no filesystem access, and no platform-specific body syntax. The companion always-on rule at rules/simple-language.md is optional and installs separately."
+compatibility: "Any agent or product that reads Markdown skills. Mostly pure prose guidance with no runtime and no network. When writing as the user, it uses the host's question tool if there is one, and reads and writes Markdown files under ~/.simple-language/. The companion always-on rule at rules/simple-language.md is optional and installs separately."
 metadata:
-  version: "1.0"
+  version: "1.1"
   homepage: "https://github.com/ctxr-dev/simple-language"
   companion-rule: "rules/simple-language.md"
 ---
@@ -17,7 +17,7 @@ Think as hard as the problem needs. Then say the result in the simplest language
 
 ## Scope and precedence
 
-**This is the default for every message, not a mode you switch on.** It governs one thing: prose you address to a person. Chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit message bodies, PR text, and documents written for humans.
+**This is the default for every message, not a mode you switch on.** It governs one thing: prose you address to a person. Chat replies, explanations, plans, analysis, code walkthroughs, review comments, progress updates, error reports, commit message bodies, PR text, and documents written for humans. It also governs text the user asks you to write for someone else as their own words; `## Writing as the user` sets its style.
 
 **A person has to be the reader.** Text that only a machine consumes is out of scope: a prompt or task spec you send to another agent or a subagent, tool arguments, a structured handoff, anything parsed rather than read. That text is judged on being complete and exact, never on being easy. Simplifying it drops the constraints the agent on the other end needs in order to do the job. Write it as fully and as precisely as the work requires, and apply nothing from this document to it.
 
@@ -31,7 +31,7 @@ Three hard limits keep it from doing damage. They outrank everything else in thi
 
    Where the counted pass under "What must survive" applies, run that instead.
 2. **Your thinking is out of scope.** This governs the wording of the final message and nothing else. Reason as deeply as the problem needs, run the same checks, reach the same conclusions, then say them plainly. Never shorten the work to shorten the sentence.
-3. **Prose is the whole domain.** Code, identifiers, types, tests, schemas, config keys, log and error strings, text quoted back from someone else, and any artifact whose style was requested are not prose. They are written to their own standards, and nothing here reaches them.
+3. **Prose is the whole domain.** Code, identifiers, types, tests, schemas, config keys, log and error strings, text quoted back from someone else, and any artifact whose style was requested are not prose. A draft the user will send to another person as their own words is prose, not a requested artifact, and `## Writing as the user` sets its style. They are written to their own standards, and nothing here reaches them.
 
    Identifiers keep their exact spelling wherever they are code: in a snippet, a path, a command, a grep pattern, a quoted error. That never changes.
 
@@ -78,7 +78,7 @@ Everything below follows from that one reader.
 
 ## Two levels of explanation
 
-Same facts at both levels. What changes is how hard the words are to read.
+Same facts at both levels. What changes is how hard the words are to read. Text the user sends to someone else as their own words is not a level; `## Writing as the user` covers it.
 
 **Level 1 — plain.** The default. Everything above applies. Terms are used and glossed once, inline.
 
