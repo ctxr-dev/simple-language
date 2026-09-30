@@ -30,7 +30,7 @@ Restart Claude Code. Your agent applies it on its own from then on. You can also
 
 **Why two steps.** Skills load **on demand**, so the agent reads the description and decides. Rules load **every session**, with no decision involved. The Skill alone gives you this style most of the time; the Rule makes it the default every time. The `skills` CLI installs Skills, so it cannot place a rule file for you.
 
-**Updating.** Re-run step 2 after each release. The rule's heading shows its version.
+**Updating.** Re-run both steps after each release. The rule's heading and the Skill's `metadata.version` show the version.
 
 <details>
 <summary>Other install options</summary>
@@ -132,7 +132,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Eventual consistency: you write here. The copy gets it later.
 
 > [!NOTE]
-> **Writing as the user, a teammate asks in a thread what eventually consistent means in the design doc.** eventual consistency means a write is not visable everywhere at once
+> **Writing as the user, a teammate asks in a thread what eventually consistent means in the design doc.** eventual consistency means a write isnt visble everywhere at once
 
 **Diagnosing a problem**
 
@@ -160,9 +160,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** I do not know your rate limit. I cannot see your system. Look in your gateway, or your Stripe webhook page.
 
 > [!NOTE]
-> **Writing as the user, a DM asks for the prod rate limit on the stripe webhook.** i dont know, i have no info on the prod stripe webhook rate limit
->
-> you need to check the gateway or the stripe config for that numbr
+> **Writing as the user, a DM asks for the prod rate limit on the stripe webhook.** i dont know the prod rate limit on the stripe webhook, i have no info on that endpoint so you need to check the gateway or the stripe config for that numbr
 
 **Defining a term**
 
@@ -222,7 +220,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Connection pool exhausted means the pool is full. Every connection is in use. A new request must wait. Or it fails with this error.
 
 > [!NOTE]
-> **Writing as the user, an on-call engineer asks in the incident channel what connection pool exhausted means in the logs.** that means every connection in the service's pool is in use, so a new requst has to wait for one to free up or fails with that error
+> **Writing as the user, an on-call engineer asks in the incident channel what connection pool exhausted means in the logs.** "Connection pool exhausted" means every connection in the service's pool is in use, so a new request has to wiat for one to free up or fails with that error
 
 **Explaining a trade-off**
 
@@ -242,15 +240,15 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 
 | Example | Without | Level 1 | Level 2 | As the user |
 |---|---|---|---|---|
-| Explaining a concept | 29 words | 11 words | **10 words** | 11 words |
+| Explaining a concept | 29 words | 11 words | **10 words** | 10 words |
 | Diagnosing a problem | 16 words | 8 words | **7 words** | 8 words |
-| Saying you don't know | 44 words | 29 words | **21 words** | 27 words |
+| Saying you don't know | 44 words | 29 words | **21 words** | 32 words |
 | Defining a term | 34 words | 29 words | **25 words** | 29 words |
 | Reporting progress | 26 words | 19 words | **18 words** | 15 words |
 | Answering yes or no | 49 words | 53 words | **47 words** | 53 words |
-| Explaining an error | 51 words | 30 words | **24 words** | 28 words |
+| Explaining an error | 51 words | 30 words | **24 words** | 30 words |
 | Explaining a trade-off | 48 words | 38 words | **33 words** | 39 words |
-| **All eight** | **297 words** | **217 words** | **185 words** | **210 words** |
+| **All eight** | **297 words** | **217 words** | **185 words** | **216 words** |
 
 Across the first five examples, level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
 
@@ -276,15 +274,15 @@ Three things it does not do:
 
 Sometimes you want the agent to write something you will send to another person as your own words. That is a separate register, also called tier 3. It triggers on a chat or Slack message, a ticket description, a ticket or task comment, a review reply, a PR description, an email, or a question to someone. It also triggers when you ask for any text "as me" or "like a human". Your own replies from the agent stay at level 1, a prompt for another agent stays out of scope, and anything else stays at level 1.
 
-It never touches the agent's replies to you, or the commits, PR titles, docs and code comments it writes as part of its own work, unless you ask for that text in this register.
+It never touches the agent's replies to you, or the commits, PR text, docs and code comments it writes as part of its own work, unless you ask for that text in this register.
 
-The draft reads like a busy person typed it: short, mostly lowercase, a few typos, no em dashes, no headings. Numbers, ticket keys, flags, paths and technical terms stay exact.
+The draft reads like a busy person typed it: short, lowercase in chat and comments, a few typos, no em dashes, no headings. Emails, PR descriptions and ticket descriptions use capitals. Numbers, ticket keys, flags, paths and technical terms stay exact.
 
-Each time, the agent asks how to deliver the draft and whether you have samples of your own writing. You can pick more than one delivery: show it in the chat as plain text, save a `.md` file, or save a `.txt` file. Saved files go to `~/.simple-language/generated/<yyyy-mm-dd>/<hh-mm-ss>/<title>.<ext>`.
+For each new draft, the agent asks how to deliver it and whether you have samples of your own writing. Edits to the same draft reuse your answer. You can pick more than one delivery: show it in the chat as plain text, save a `.md` file, or save a `.txt` file. Saved files go to `~/.simple-language/generated/<yyyy-mm-dd>/<hh-mm-ss>/<title>.<ext>`.
 
 Samples teach it your own habits. They live in `~/.simple-language/human-language/samples/`, and the habits found in them live in `~/.simple-language/human-language/patterns/`. Only your own lines are stored, and secrets are replaced with `[redacted]`. [`references/sample-registry.md`](references/sample-registry.md) describes the format.
 
-It never posts for you. You see the exact text first, and you send it.
+It never posts on its own. It shows you the exact text first, and posts only if you tell it to send that text.
 
 It does not promise the text cannot be detected as AI. It aims for short text that looks like your own writing.
 
@@ -340,7 +338,7 @@ That distinction is not theoretical. In every answer above, both agents used **z
 |---|---|
 | Code, identifiers, types, tests, config keys | Not prose. Outside the rule's domain |
 | Technical terms, like race condition, idempotent, quorum | The correct word is the clear word |
-| Technology names, like PostgreSQL, gRPC, Kafka, Temporal | Written the way their docs write them |
+| Technology names, like PostgreSQL, gRPC, Kafka, Temporal | Written the way their docs write them, except that a draft you send as yourself may lowercase them |
 | Numbers, error text, log lines, quoted text | Reproduced exactly |
 | An artifact whose style you asked for | An RFC stays RFC style, an abstract stays academic |
 | Ticket keys, flags, dates and numbers inside a draft you send as yourself | Kept byte for byte, even when the rest is lowercase with typos |
@@ -363,9 +361,9 @@ Fresh agents, same model (Claude Opus), no shared context. One agent in each pai
 
 **The level 2 answers came from a separate run.** They were produced later, against the shipped `SKILL.md`, with an agent given the level 1 answer and then the reply "explain it like I'm five". They are unedited too, but they were not part of the original paired comparison, so the reading-ease score above covers level 1 only.
 
-**The writing-as-the-user drafts came from a separate run too.** They were produced against the shipped `SKILL.md`. Each fresh subagent got the situation and the facts of the level 1 answer, and nothing else. Drafts that failed the automatic checks (a dash, a heading, a colon in prose, a changed number or term, a dropped causal word, mixed casing) were regenerated, not edited. So was a level 2 answer that came out longer than its level 1 answer.
+**The writing-as-the-user drafts came from a separate run too.** They were produced against the shipped `SKILL.md`. Each fresh subagent got the situation and the facts of the level 1 answer, and nothing else. Drafts that failed the automatic checks (a dash, a heading, a colon in prose, a changed number or term, a dropped causal word, a spelling-rule typo, mixed casing) were regenerated, not edited.
 
-**The last three examples came from a later run.** Both agents got the same question and the same extra line, "Reply in one sentence.", so they are shorter by request, not by style. They are unedited, and they are not part of the reading-ease score. In the yes-or-no example, level 1 came out longer than the answer without the skill, because it kept the reason a migration breaks requests.
+**The last three examples came from a later run.** Both agents got the same question and the same extra line, "Reply in one sentence.", so they are shorter by request, not by style. They are unedited, and they are not part of the reading-ease score. One level 2 answer in them came out longer than its level 1 answer and was regenerated, not edited. In the yes-or-no example, level 1 came out longer than the answer without the skill, because it kept the reason a migration breaks requests.
 
 **Two cases barely moved.** Reviewing one line of code came out 6% shorter, and recommending a queue also 6%. In both, the unruled answer was already plain, so there was little to fix. The skill helps most where the topic invites dense prose and least where the answer is already concrete.
 
@@ -376,13 +374,13 @@ This is a demonstration, not a benchmark.
 ## What is in this repo
 
 ```
-SKILL.md                    the skill your agent reads
-rules/simple-language.md    the always-on rule, loaded every turn
-README.md                   this file
-references/word-swaps.md    the full word list, plus the words to leave alone
-references/writing-as-the-user.md   every good example, written as the user would type it
+SKILL.md                            the skill your agent reads
+rules/simple-language.md            the always-on rule, loaded every turn
+README.md                           this file
+references/word-swaps.md            the full word list, plus the words to leave alone
+references/writing-as-the-user.md   the good examples from SKILL.md, written as the user would type them
 references/sample-registry.md       how samples of your own writing are stored and used
-LICENSE                     MIT
+LICENSE                             MIT
 ```
 
 `SKILL.md` sits at the repo root, so the `skills` CLI resolves it with no flags. [`rules/simple-language.md`](rules/simple-language.md) is deliberately short because it loads on every turn, and it carries instructions only. The reasoning behind its wording lives here, where it costs nothing at runtime.

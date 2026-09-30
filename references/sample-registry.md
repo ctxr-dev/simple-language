@@ -82,4 +82,4 @@ Update `samples/index.md`, the sample's `patterns:` list, the pattern files and 
 
 ## Using patterns
 
-Before writing a draft, read `patterns/index.md`. If it does not exist, use the defaults in SKILL.md. Every listed pattern applies from its first sample, in every channel. A pattern wins over steps 5 to 8 of How to write it, and never over What still binds. When two patterns of the same kind disagree, the one with the higher `seen_in` wins; on a tie, the one updated most recently wins.
+Before writing a draft, read `patterns/index.md`. If it does not exist, use the defaults in SKILL.md. Every listed pattern applies from its first sample, in every channel. A pattern wins over steps 5 to 8 of How to write it, and never over What still binds. When two patterns of the same kind disagree, the one with the higher `seen_in` wins; on a tie, the one whose newest evidence sample is newer wins. Sample file names start with their timestamp.

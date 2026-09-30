@@ -2,7 +2,7 @@
 name: simple-language
 description: "Use for every message a person will read: chat replies, explanations, plans, analysis, review comments, progress updates, error reports, commit and PR text, and docs for humans. Level 1 is the default and applies every time, with no trigger. Level 2 is the simplest version, with commoner words, sentences of nine words at most, and never more words than before; it fires only when the reader asks for it simpler, says like I'm five, or says again that they do not understand. Also use when the user asks you to write text they will send to another person as their own, like a chat message, ticket, comment, reply, email or question: write it the way a hurried human types. Also use when simplifying must not lose a qualifier, a number, a caveat, a conditional or a case count. Do NOT use for text no person reads: prompts and task specs for other agents or subagents, tool arguments, structured handoffs, machine-parsed output, code, identifiers, config keys, log and error strings."
 license: MIT
-compatibility: "Any agent or product that reads Markdown skills. Mostly pure prose guidance with no runtime and no network. When writing as the user, it uses the host's question tool if there is one, and reads and writes Markdown files under ~/.simple-language/. The companion always-on rule at rules/simple-language.md is optional and installs separately."
+compatibility: "Any agent or product that reads Markdown skills. Mostly pure prose guidance with no runtime and no network. When writing as the user, it uses the host's question tool if there is one, and reads and writes Markdown and plain-text files under ~/.simple-language/. The companion always-on rule at rules/simple-language.md is optional and installs separately."
 metadata:
   version: "1.1"
   homepage: "https://github.com/ctxr-dev/simple-language"
@@ -31,7 +31,7 @@ Three hard limits keep it from doing damage. They outrank everything else in thi
 
    Where the counted pass under "What must survive" applies, run that instead.
 2. **Your thinking is out of scope.** This governs the wording of the final message and nothing else. Reason as deeply as the problem needs, run the same checks, reach the same conclusions, then say them plainly. Never shorten the work to shorten the sentence.
-3. **Prose is the whole domain.** Code, identifiers, types, tests, schemas, config keys, log and error strings, text quoted back from someone else, and any artifact whose style was requested are not prose. A draft the user will send to another person as their own words is prose, not a requested artifact, and `## Writing as the user` sets its style. They are written to their own standards, and nothing here reaches them.
+3. **Prose is the whole domain.** Code, identifiers, types, tests, schemas, config keys, log and error strings, text quoted back from someone else, and any artifact whose style was requested are not prose. They are written to their own standards, and nothing here reaches them. A draft the user will send to another person as their own words is prose, not a requested artifact, and `## Writing as the user` sets its style.
 
    Identifiers keep their exact spelling wherever they are code: in a snippet, a path, a command, a grep pattern, a quoted error. That never changes.
 
@@ -335,12 +335,12 @@ Read the table from the top. The first row that matches decides.
 |---|---|
 | Your own reply to the user: an answer, an explanation, a plan, a review of their code, your progress | Level 1, or level 2 on its own signal |
 | Any text the user asks for in this register: "as me", "like a human", "the way I would type it" | This register, even for a commit message |
-| A commit message, PR title, changelog, release note, doc, README, code comment or docstring you write as part of your own work | Level 1, or the repo's own convention |
+| A commit message, PR title or description, changelog, release note, doc, README, code comment or docstring you write as part of your own work | Level 1, or the repo's own convention |
 | A prompt or message for another agent or a bot | Out of scope, as `## Scope and precedence` says |
 | Text the user asks you to write for another person to read as the user's words, in any channel: a chat or Slack message, a ticket description, a ticket or task comment, a review reply, a PR description, an email, a question to someone | This register |
 | Anything else | Level 1 |
 
-Requests that match the fifth row name a person, a channel, or a message for someone else, and ask for the text itself: "reply to Anna", "make me a reply", "format this as a comment", "write the ticket for this", "answer him in the thread", "ask Pete if the deploy is done", "write the PR description".
+Requests that match the fifth row name a person, a channel, or a message for someone else, and ask for the text itself: "reply to Anna", "make me a reply", "format this as a ticket comment", "write the ticket for this", "answer him in the thread", "ask Pete if the deploy is done", "write the PR description".
 
 | What the user says next | What changes |
 |---|---|
@@ -355,29 +355,29 @@ This register covers the draft only. Every word you say to the user around it st
 ### What still binds
 
 1. The three hard limits, unchanged.
-2. `## What must survive`, unchanged. The counted pass runs on every draft, at any length, on the exact text you hand over.
-3. Keep these exact, byte for byte: every token with a digit (numbers, units, versions, dates, times, ranges, ticket keys like `PAY-142`, SHAs, ports, `-1`), identifiers by their shape even without backticks, paths, URLs, commands, flags like `--dry-run`, environment variables, @mentions, #channels, issue refs and closing keywords with their ref, error text, quoted text, and every technical term.
+2. `## What must survive`, with one change: the counted pass runs on every draft, at any length, on the exact text you hand over.
+3. Keep these exact, byte for byte: every token with a digit (numbers, units, versions, dates, times, ranges, ticket keys like `PAY-142`, SHAs, ports, `-1`), identifiers by their shape even without backticks, paths, URLs, commands, flags like `--dry-run`, environment variables, @mentions, #channels, issue refs and closing keywords with their ref, error text, quoted text, and every technical term. A short form the user would type, like prod for production or db for database, counts as the same term.
 4. Keep the same count of: negations (not, no, never, don't, can't, without, unless, except), scope and quantifier words (only, all, every, none, some, most, both), conditions and time limits (if, when, until, before, after), causal words (because, so), uncertainty (I think, not sure, haven't checked), case counts, questions, and requests (can you, please).
 5. Add nothing. Every first person claim, promise, date, name and apology comes from something the user said. If the draft needs a fact only the user has, ask for it when you ask about delivery. Never invent it.
 6. The `Talking down` row still binds: plain words, never a lower opinion of the reader.
 
-Where this section conflicts with the rest of this document, this section wins inside the draft and nowhere else. Inside the draft it suspends: the answer, reason, next step shape; glossing terms; the 15 to 20 word target and the level 2 caps; "The register stays"; the `Choppy` row; headings, bold, bullets and tables; and doc casing for product names in prose.
+Where this section conflicts with the rest of this document, this section wins inside the draft, and `### Asking and delivering` applies as written. Everywhere else the rest of this document applies. Inside the draft this section suspends: the answer, reason, next step shape; glossing terms; the 15 to 20 word target and the level 2 caps; "The register stays"; the `Choppy` row; headings, bold, bullets and tables; and `## Final pass before you send`, which step 10 replaces.
 
 ### How to write it
 
 1. Work out the facts at level 1, then list every item from rules 3 and 4 above.
 2. "I" is the user. Drop anything only you, the agent, could say.
-3. Cut only what the reader already has from the thread. A ticket description is read cold, so the term and the scope stay in it.
+3. Cut only context the reader already has from the thread, never an item on the step 1 list. A ticket description is read cold, so the term and the scope stay in it.
 4. Shape it by message type.
    - A chat or comment reply gives only the new part, in one to three lines.
-   - A question puts the ask in the first line, then one line on what was already checked. Never a lone "hi".
-   - A review reply says "done", "fixed in <sha>", or the reason in one line, with "nit:" for small points. Never "great catch" or "you're absolutely right".
+   - A question puts the ask in the first line, then, if the user said what they already checked, one line on it. Never a lone "hi".
+   - A review reply says "done", "fixed in `<sha>`", or the reason in one line, and starts with "nit" for small points. Never "great catch" or "you're absolutely right".
    - A ticket description puts the bug in the first line, then plain lines, numbered repro steps, and the error text in a code block.
    - An email or a PR description uses the same plain lines, with a greeting only when the user uses one.
 5. Use the short words the user would type: prod, config, repo, PR, and contractions like dont and cant. Keep every technical term. No chat slang unless it carries meaning, as "afaik" carries doubt. No word this skill already bans, no definition nobody asked for, no closing offer, no summary.
-6. Type only keys on a plain keyboard: letters, digits, period, comma, question mark, apostrophe, straight quotes. No em dash, no en dash, and no hyphen used as punctuation between words; a hyphen inside a token from rule 3 stays. No colon, semicolon or parentheses in prose. A thought that needed a dash becomes a comma, an "and", a "so", or a new line, never a row of three word sentences. Backticks go only around something the reader will copy, and only where the channel shows them.
-7. Keep one casing habit for the whole draft. Usually every sentence starts lowercase and "i" is lowercase; about one draft in five uses capitals instead. Product names in prose may be lowercase, like stripe, kafka and postgres, unless the lowercase form is an ordinary word, like Go, Rust, Swift and Temporal. Tokens from rule 3 keep their exact case. A chat message has no period at the end.
-8. Add typos last. Aim for about one per one or two sentences on average across drafts; zero is fine in any single draft, and most drafts under ten words have none. Never place one to meet a count. Each typo is one edit on an ordinary word of four letters or more: a neighbouring key, a dropped letter, a doubled letter, or rarely two swapped letters. The result must not be a real word, so "not" to "now" is banned. Never put one on anything from rules 3 and 4, and never make a spelling rule mistake like "your" for "you're". Vary the kind.
+6. Type only keys on a plain keyboard: letters, digits, period, comma, question mark, apostrophe, straight quotes. No em dash, no en dash, and no hyphen used as punctuation between words; a hyphen inside a token from rule 3 stays. No colon, semicolon or parentheses in prose. A thought that needed a dash becomes a comma, an "and", a new line, or a "so" where the dash already meant so, never a row of three word sentences. Backticks go only around something the reader will copy, and only where the channel shows them.
+7. Keep one casing habit for the whole draft. An email, a PR description and a ticket description use capitals. Everything else starts every sentence lowercase, with "i" lowercase. Product names in prose may be lowercase, like stripe, kafka and postgres, unless the lowercase form is an ordinary word, like Go, Rust, Swift and Temporal. Tokens from rule 3 keep their exact case. A chat message has no period at the end.
+8. Add typos last. Aim for about one per one or two sentences on average across drafts; zero is fine in any single draft, and most drafts under ten words have none. Never place one to meet a count. Each typo is one edit on an ordinary word of four letters or more: a neighbouring key, a dropped letter, a doubled letter, or rarely two swapped letters. The result must not be a real word, so "not" to "now" is banned. Never put one on anything from rules 3 and 4, and never make a spelling rule mistake like "your" for "you're", "recieve" or "visable".
 9. The user's own patterns win over steps 5 to 8. Load them as `references/sample-registry.md` says. They never win over rules 1 to 6 of `### What still binds`.
 10. Check before you hand it over. Walk the list from step 1 on the exact final text, and remove any typo that touched a listed item. Confirm there is no heading, bold, bullet list, em dash, colon in prose, closing offer, or unasked definition. Never mention the typos or this check.
 
