@@ -30,27 +30,29 @@ Restart Claude Code. Your agent applies it on its own from then on. You can also
 
 **Why two steps.** Skills load **on demand**, so the agent reads the description and decides. Rules load **every session**, with no decision involved. The Skill alone gives you this style most of the time; the Rule makes it the default every time. The `skills` CLI installs Skills, so it cannot place a rule file for you.
 
+**Updating.** Re-run step 2 after each release. The rule's heading shows its version.
+
 <details>
 <summary>Other install options</summary>
 
-**Global** — add `-g` to the `skills` command to install for all your projects.
+**Global**: add `-g` to the `skills` command to install for all your projects.
 
-**Project-level rule** — put the rule at `.claude/rules/simple-language.md` in your repo root, or paste its contents into `CLAUDE.md`.
+**Project-level rule**: put the rule at `.claude/rules/simple-language.md` in your repo root, or paste its contents into `CLAUDE.md`.
 
-**Other agents** — Codex, omp, Cursor, Copilot, Gemini CLI, Windsurf and OpenCode each get a ready-made block in the next section.
+**Other agents**: Codex, omp, Cursor, Copilot, Gemini CLI, Windsurf and OpenCode each get a ready-made block in the next section.
 
-**Windows PowerShell** — use `$env:USERPROFILE\.claude\rules` in place of `~/.claude/rules`.
+**Windows PowerShell**: use `$env:USERPROFILE\.claude\rules` in place of `~/.claude/rules`.
 
-**Track the repo instead of copying** — `ln -sf "$PWD/rules/simple-language.md" ~/.claude/rules/simple-language.md`
+**Track the repo instead of copying**: `ln -sf "$PWD/rules/simple-language.md" ~/.claude/rules/simple-language.md`
 
-**Try it without installing** — `npx skills use ctxr-dev/simple-language | claude`
+**Try it without installing**: `npx skills use ctxr-dev/simple-language | claude`
 
-**Inspect first** — `npx skills add ctxr-dev/simple-language --list`
+**Inspect first**: `npx skills add ctxr-dev/simple-language --list`
 
 </details>
 
 <details>
-<summary>Install the Rule in another agent — Codex, omp, Cursor, Copilot, Gemini CLI, Windsurf, OpenCode</summary>
+<summary>Install the Rule in another agent: Codex, omp, Cursor, Copilot, Gemini CLI, Windsurf, OpenCode</summary>
 
 Every block installs the same file: [`rules/simple-language.md`](rules/simple-language.md). Run the one for your agent once. All of them are user-global unless the comment says project.
 
@@ -65,7 +67,7 @@ mkdir -p ~/.omp/agent/rules
 } > ~/.omp/agent/rules/simple-language.md
 ```
 
-`alwaysApply: true` is not optional here. omp discovers a rule file that has no `alwaysApply`, no `description` and no trigger condition, then drops it — the file would sit on disk doing nothing. For one project only, write to `.omp/rules/simple-language.md` instead.
+`alwaysApply: true` is not optional here. omp discovers a rule file that has no `alwaysApply`, no `description` and no trigger condition, then drops it. The file would sit on disk doing nothing. For one project only, write to `.omp/rules/simple-language.md` instead.
 
 Cursor (project):
 
@@ -85,7 +87,7 @@ mkdir -p .windsurf/rules
 } > .windsurf/rules/simple-language.md
 ```
 
-**Agents that read one Markdown context file.** Same block for all of them — set `FILE` from the table, then run it. It is safe to re-run: the marker pair is deleted and rewritten, so you never get two copies.
+**Agents that read one Markdown context file.** Same block for all of them. Set `FILE` from the table, then run it. It is safe to re-run: the marker pair is deleted and rewritten, so you never get two copies.
 
 ```bash
 FILE=~/.codex/AGENTS.md            # pick your path from the table below
@@ -106,7 +108,7 @@ sed -i.bak '/<!-- BEGIN simple-language -->/,/<!-- END simple-language -->/d' "$
 | GitHub Copilot | `.github/copilot-instructions.md` | project |
 | Any other agent that reads `AGENTS.md` | `AGENTS.md` | project |
 
-Codex inlines the body because it does not expand `@path` imports. Gemini CLI and omp do expand them, so you can point at a clone instead of copying — `@~/src/simple-language/rules/simple-language.md` on its own line.
+Codex inlines the body because it does not expand `@path` imports. Gemini CLI and omp do expand them, so you can point at a clone instead of copying, with `@~/src/simple-language/rules/simple-language.md` on its own line.
 
 </details>
 
@@ -192,16 +194,18 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 >
 > runing the integration tests now
 
-| Example | Without | Level 1 | Level 2 |
-|---|---|---|---|
-| Explaining a concept | 29 words | 11 words | **10 words** |
-| Diagnosing a problem | 16 words | 8 words | **7 words** |
-| Saying you don't know | 44 words | 29 words | **21 words** |
-| Defining a term | 34 words | 29 words | **25 words** |
-| Reporting progress | 26 words | 19 words | **18 words** |
-| **All five** | **149 words** | **96 words** | **81 words** |
+| Example | Without | Level 1 | Level 2 | As the user |
+|---|---|---|---|---|
+| Explaining a concept | 29 words | 11 words | **10 words** | 11 words |
+| Diagnosing a problem | 16 words | 8 words | **7 words** | 8 words |
+| Saying you don't know | 44 words | 29 words | **21 words** | 27 words |
+| Defining a term | 34 words | 29 words | **25 words** | 29 words |
+| Reporting progress | 26 words | 19 words | **18 words** | 15 words |
+| **All five** | **149 words** | **96 words** | **81 words** | **90 words** |
 
 Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
+
+The writing-as-the-user drafts come from a separate run, contain deliberate typos, and are not scored for reading ease.
 
 ---
 
@@ -209,13 +213,31 @@ Level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the
 
 Say "simpler", or "like I'm five", or just say again that you do not understand. You get level 2.
 
-Level 2 writes for someone who barely reads English — a year of it, maybe a thousand words. It never uses more words than the answer you did not understand, and it uses no word of three syllables or more, except the technical term itself. Sentences of nine words at most. Numbers in place of descriptions, because a number needs no vocabulary at all.
+Level 2 writes for someone who barely reads English, with a year of it and maybe a thousand words. It never uses more words than the answer you did not understand, and it uses no word of three syllables or more, except the technical term itself. Sentences of nine words at most. Numbers in place of descriptions, because a number needs no vocabulary at all.
 
 Three things it does not do:
 
 - **It does not drop the technical term.** The level 2 answers above still say `eventual consistency`, `race condition`, `exponential backoff`, `rate limit`. You leave knowing what the thing is called.
 - **It does not drop a number or a caveat.** The race condition answer still carries 5 and 4. The "I don't know" answer still refuses to invent a rate limit, and still names both places to look.
 - **It does not talk down.** Shorter sentences help a reader. A lowered register does not; it measurably reduces how much someone takes in. Those are two separate dials and this turns only one.
+
+---
+
+## Writing as the user
+
+Sometimes you want the agent to write something you will send to another person as your own words. That is a separate register, also called tier 3. It triggers on a chat or Slack message, a ticket description, a ticket or task comment, a review reply, a PR description, an email, or a question to someone. It also triggers when you ask for any text "as me" or "like a human". Your own replies from the agent stay at level 1, a prompt for another agent stays out of scope, and anything else stays at level 1.
+
+It never touches the agent's replies to you, or the commits, PR titles, docs and code comments it writes as part of its own work, unless you ask for that text in this register.
+
+The draft reads like a busy person typed it: short, mostly lowercase, a few typos, no em dashes, no headings. Numbers, ticket keys, flags, paths and technical terms stay exact.
+
+Each time, the agent asks how to deliver the draft and whether you have samples of your own writing. You can pick more than one delivery: show it in the chat as plain text, save a `.md` file, or save a `.txt` file. Saved files go to `~/.simple-language/generated/<yyyy-mm-dd>/<hh-mm-ss>/<title>.<ext>`.
+
+Samples teach it your own habits. They live in `~/.simple-language/human-language/samples/`, and the habits found in them live in `~/.simple-language/human-language/patterns/`. Only your own lines are stored, and secrets are replaced with `[redacted]`. [`references/sample-registry.md`](references/sample-registry.md) describes the format.
+
+It never posts for you. You see the exact text first, and you send it.
+
+It does not promise the text cannot be detected as AI. It aims for short text that looks like your own writing.
 
 ---
 
@@ -228,11 +250,11 @@ This is the part people expect to be a trade-off. Three tests say it is not.
 > [!TIP]
 > One more caveat: retrying a request that is not idempotent can duplicate work, so a retry on a payment or an order needs an idempotency key. Idempotent means running it twice gives the same result as running it once.
 
-**Precision survives a subtle caveat.** Asked to explain at-least-once versus exactly-once delivery in Kafka, the ruled agent kept the part that is easy to lose: exactly-once holds inside Kafka only, and a write to an external database or an HTTP call is not covered. One gap did appear — it dropped two config key names — so the rule now names config keys and exact identifiers in its precision limit.
+**Precision survives a subtle caveat.** Asked to explain at-least-once versus exactly-once delivery in Kafka, the ruled agent kept the part that is easy to lose: exactly-once holds inside Kafka only, and a write to an external database or an HTTP call is not covered. One gap did appear. It dropped two config key names, so the rule now names config keys and exact identifiers in its precision limit.
 
 **Code is untouched.** Asked for a retry helper with exponential backoff and full jitter, the ruled agent produced the same quality of TypeScript as the unruled one: correct full-jitter maths, `AbortSignal` support, injectable `random` for deterministic tests, and real names like `retryWithBackoff` and `maxDelayMs`. Nothing renamed to sound friendlier, nothing simplified into being wrong.
 
-That last result comes from how the rule is scoped. It states what it governs — prose addressed to a person — instead of listing exceptions. An instruction built as *"simplify everything except code"* leaks, because the model absorbs "simplify" and the exception does not reliably fence off the code. Defining prose as the whole domain means code was never inside it.
+That last result comes from how the rule is scoped. It states what it governs, prose addressed to a person, instead of listing exceptions. An instruction built as *"simplify everything except code"* leaks, because the model absorbs "simplify" and the exception does not reliably fence off the code. Defining prose as the whole domain means code was never inside it.
 
 The rule also says outright that reasoning is out of scope, and ranks precision above style. Those two lines are what stop an always-on rule from becoming pressure to be brief.
 
@@ -252,7 +274,7 @@ Word swaps are the small part:
 
 The core is the six habits that produce heavy prose:
 
-1. Nouns doing a verb's job — "the decomposition of this responsibility" instead of "split this"
+1. Nouns doing a verb's job, like "the decomposition of this responsibility" instead of "split this"
 2. Passive voice that hides who acts
 3. Climbing higher up the abstraction ladder than needed
 4. Throat-clearing before the point
@@ -268,10 +290,11 @@ That distinction is not theoretical. In every answer above, both agents used **z
 | Left exactly as it is | Why |
 |---|---|
 | Code, identifiers, types, tests, config keys | Not prose. Outside the rule's domain |
-| Technical terms — race condition, idempotent, quorum | The correct word is the clear word |
-| Technology names — PostgreSQL, gRPC, Kafka, Temporal | Written the way their docs write them |
+| Technical terms, like race condition, idempotent, quorum | The correct word is the clear word |
+| Technology names, like PostgreSQL, gRPC, Kafka, Temporal | Written the way their docs write them |
 | Numbers, error text, log lines, quoted text | Reproduced exactly |
 | An artifact whose style you asked for | An RFC stays RFC style, an abstract stays academic |
+| Ticket keys, flags, dates and numbers inside a draft you send as yourself | Kept byte for byte, even when the rest is lowercase with typos |
 
 A term you may not know arrives with one plain sentence explaining it, exactly as *idempotent* did above. After that it is used without further hand-holding.
 
@@ -291,6 +314,8 @@ Fresh agents, same model (Claude Opus), no shared context. One agent in each pai
 
 **The level 2 answers came from a separate run.** They were produced later, against the shipped `SKILL.md`, with an agent given the level 1 answer and then the reply "explain it like I'm five". They are unedited too, but they were not part of the original paired comparison, so the reading-ease score above covers level 1 only.
 
+**The writing-as-the-user drafts came from a separate run too.** They were produced against the shipped `SKILL.md`. Each fresh subagent got the situation and the facts of the level 1 answer, and nothing else. Drafts that failed the automatic checks (a dash, a heading, a colon in prose, a changed number or term, mixed casing) were regenerated, not edited.
+
 **Two cases barely moved.** Reviewing one line of code came out 6% shorter, and recommending a queue also 6%. In both, the unruled answer was already plain, so there was little to fix. The skill helps most where the topic invites dense prose and least where the answer is already concrete.
 
 This is a demonstration, not a benchmark.
@@ -304,10 +329,12 @@ SKILL.md                    the skill your agent reads
 rules/simple-language.md    the always-on rule, loaded every turn
 README.md                   this file
 references/word-swaps.md    the full word list, plus the words to leave alone
+references/writing-as-the-user.md   every good example, written as the user would type it
+references/sample-registry.md       how samples of your own writing are stored and used
 LICENSE                     MIT
 ```
 
-`SKILL.md` sits at the repo root, so the `skills` CLI resolves it with no flags. [`rules/simple-language.md`](rules/simple-language.md) is deliberately short because it loads on every turn, and it carries instructions only — the reasoning behind its wording lives here, where it costs nothing at runtime.
+`SKILL.md` sits at the repo root, so the `skills` CLI resolves it with no flags. [`rules/simple-language.md`](rules/simple-language.md) is deliberately short because it loads on every turn, and it carries instructions only. The reasoning behind its wording lives here, where it costs nothing at runtime.
 
 [`references/word-swaps.md`](references/word-swaps.md) holds the long lookup list, including a **"keep these words"** section. That section matters more than it sounds: without it a style pass will happily turn `CPU utilization` into `CPU use` and `implement the interface` into `build the interface`, and both are now wrong.
 

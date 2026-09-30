@@ -22,12 +22,12 @@ Three hard limits, in this order of precedence:
 
 Six more disappear without looking wrong. Keep each one:
 
-- scope qualifiers — "it fails only over 8 MB"
-- quantifier strength — "every" is not "most"
-- causal direction — A causes B is not B causes A
-- stated uncertainty — "I have not measured it"
-- conditionals — "if the token expired"
-- exhaustiveness — three cases stay three
+- scope qualifiers: "it fails only over 8 MB"
+- quantifier strength: "every" is not "most"
+- causal direction: A causes B is not B causes A
+- stated uncertainty: "I have not measured it"
+- conditionals: "if the token expired"
+- exhaustiveness: three cases stay three
 
 Past 400 words of final text, list these before you simplify and check each one survived. Do the same on any second attempt after a reader says they do not understand.
 
