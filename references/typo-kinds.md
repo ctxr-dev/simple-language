@@ -15,14 +15,15 @@ Pick a kind roughly by its weight, and do not repeat the kind of the previous ty
 | Kind | Weight | How to make it | Real examples |
 |---|---|---|---|
 | adjacent-key substitution | 25 | Replace one letter with a key that touches it on a QWERTY keyboard | wirh for with, switxh for switch, ehile for while |
-| dropped letter | 22 | Leave out one letter, usually a vowel or one of two consonants in a row | diffrent, defintely, exept, aparment |
+| dropped letter | 22 | Leave out one letter, usually a vowel or one of two consonants in a row | diffrent, defintely, aparment |
 | adjacent transposition | 14 | Swap two neighbouring letters, most often one typed by each hand | tehre for there, alseep for asleep |
 | extra letter | 9 | Add one letter from a key next to the letter before or after it | windowq, suitablev, horizion |
-| doubled letter | 7 | Type one letter twice | uppsetting, insurred, variationns |
-| dropped letter of a double | 6 | Type a double letter once | progres, possesion, finaly |
-| missing space | 6 | Join two short ordinary words | ina chaotic, orare you |
-| space shifted | 4 | Type the space one key late, so a letter jumps to the next word | o fmistakes for of mistakes |
+| doubled letter | 7 | Type one letter twice | uppsetting, insurred, amicablly |
+| dropped letter of a double | 6 | Type a double letter once | progres, finaly, apreciating |
+| missing space | 6 | Join two short ordinary words | orare you, initself |
+| space shifted | 4 | Type the space one key late, so a letter jumps to the next word | gauget he for gauge the |
 | extra space | 4 | Put a space inside one word | t hat for that |
+| shift held too long | 3 | Only in a draft that uses capitals, on the first word of a sentence | THey for They. No corpus example yet; a typing patent describes it |
 
 ## Where a typo lands
 
