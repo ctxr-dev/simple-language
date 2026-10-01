@@ -325,7 +325,7 @@ Then still talk to the user in plain language around it. The document is formal;
 
 ## Writing as the user
 
-This section is also called tier 3. It is not a third level. Levels 1 and 2 set how hard your words are for the user. This register sets how a draft looks when the user sends it to someone else as their own words, so it reads like a busy person typed it.
+This section is also called tier 3. It is not a third level. Levels 1 and 2 set how hard your words are for the user. This register sets how a draft looks when the user sends it to someone else as their own words, so it reads like a busy person typed it. It starts from the level 2 version of the message and then makes it look typed by hand.
 
 ### When it applies
 
@@ -345,7 +345,7 @@ Requests that match the fifth row name a person, a channel, or a message for som
 | What the user says next | What changes |
 |---|---|
 | "shorter", "simpler", "add that I'm out Friday", "less rude", about the draft | Edit the same draft, same register, same delivery. Level 2 does not fire |
-| "clean it up", "write it properly", "fix the typos" | Rewrite that draft at level 1 |
+| "clean it up", "write it properly", "fix the typos" | Rewrite that draft as clean level 2: the same simple words, normal casing, no typos |
 | A new request | Start again at the top of the first table |
 | They write to you in lowercase or with typos | Nothing changes. Their style is not a request |
 | "I don't understand", "simpler", "ELI5", about your own explanation | `### Which level to use` applies |
@@ -361,11 +361,11 @@ This register covers the draft only. Every word you say to the user around it st
 5. Add nothing. Every first person claim, promise, date, name and apology comes from something the user said. If the draft needs a fact only the user has, ask for it when you ask about delivery. Never invent it.
 6. The `Talking down` row still binds: plain words, never a lower opinion of the reader.
 
-Where this section conflicts with the rest of this document, this section wins inside the draft, and `### Asking and delivering` applies as written. Everywhere else the rest of this document applies. Inside the draft this section suspends: the answer, reason, next step shape; glossing terms; the 15 to 20 word target and the level 2 caps; "The register stays"; the `Choppy` row; headings, bold, bullets and tables; and `## Final pass before you send`, which step 10 replaces.
+Where this section conflicts with the rest of this document, this section wins inside the draft, and `### Asking and delivering` applies as written. Everywhere else the rest of this document applies. Inside the draft this section suspends: the answer, reason, next step shape; glossing terms; the 15 to 20 word target; the nine-word cap where step 5 joins two sentences; "The register stays"; the `Choppy` row; headings, bold, bullets and tables; and `## Final pass before you send`, which step 10 replaces.
 
 ### How to write it
 
-1. Work out the facts at level 1, then list every item from rules 3 and 4 above.
+1. Work out the facts at level 1. Then write the level 2 version, as `## Two levels of explanation` describes: commoner words, no word of three syllables or more except the term, and never more words than level 1. That version is the base for every step below. List every item from rules 3 and 4 in it.
 2. "I" is the user. Drop anything only you, the agent, could say.
 3. Cut only context the reader already has from the thread, never an item on the step 1 list. A ticket description is read cold, so the term and the scope stay in it.
 4. Shape it by message type.
@@ -374,10 +374,10 @@ Where this section conflicts with the rest of this document, this section wins i
    - A review reply says "done", "fixed in `<sha>`", or the reason in one line, and starts with "nit" for small points. Never "great catch" or "you're absolutely right".
    - A ticket description puts the bug in the first line, then plain lines, numbered repro steps, and the error text in a code block.
    - An email or a PR description uses the same plain lines, with a greeting only when the user uses one.
-5. Use the short words the user would type: prod, config, repo, PR, and contractions like dont and cant. Keep every technical term. No chat slang unless it carries meaning, as "afaik" carries doubt. No word this skill already bans, no definition nobody asked for, no closing offer, no summary.
+5. Keep the level 2 words, and use the short forms the user would type: prod, config, repo, PR, and contractions like dont and cant. You may join two short level 2 sentences with a comma or an "and", the way people type. Keep every technical term. No chat slang unless it carries meaning, as "afaik" carries doubt. No word this skill already bans, no definition nobody asked for, no closing offer, no summary.
 6. Type only keys on a plain keyboard: letters, digits, period, comma, question mark, apostrophe, straight quotes. No em dash, no en dash, and no hyphen used as punctuation between words; a hyphen inside a token from rule 3 stays. No colon, semicolon or parentheses in prose. A thought that needed a dash becomes a comma, an "and", a new line, or a "so" where the dash already meant so, never a row of three word sentences. Backticks go only around something the reader will copy, and only where the channel shows them.
 7. Keep one casing habit for the whole draft. An email, a PR description and a ticket description use capitals. Everything else starts every sentence lowercase, with "i" lowercase. Product names in prose may be lowercase, like stripe, kafka and postgres, unless the lowercase form is an ordinary word, like Go, Rust, Swift and Temporal. Tokens from rule 3 keep their exact case. A chat message has no period at the end.
-8. Add typos last. Aim for about one per one or two sentences on average across drafts; zero is fine in any single draft, and most drafts under ten words have none. Never place one to meet a count. Each typo is one edit on an ordinary word of four letters or more: a neighbouring key, a dropped letter, a doubled letter, or rarely two swapped letters. The result must not be a real word, so "not" to "now" is banned. Never put one on anything from rules 3 and 4, and never make a spelling rule mistake like "your" for "you're", "recieve" or "visable".
+8. Add typos last, and read `references/typo-kinds.md` first. About one every two to three sentences across drafts; a one-sentence draft usually has none. Each typo is one edit of a kind that file lists, on ordinary words only. Never a real word, like "not" to "now", never a spelling mistake like "recieve", and never on anything from rules 3 and 4.
 9. The user's own patterns win over steps 5 to 8. Load them as `references/sample-registry.md` says. They never win over rules 1 to 6 of `### What still binds`.
 10. Check before you hand it over. Walk the list from step 1 on the exact final text, and remove any typo that touched a listed item. Confirm there is no heading, bold, bullet list, em dash, colon in prose, closing offer, or unasked definition. Never mention the typos or this check.
 
