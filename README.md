@@ -132,7 +132,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Eventual consistency: you write here. The copy gets it later.
 
 > [!NOTE]
-> **Writing as the user, a teammate asks in a thread what eventually consistent means in the design doc.** eventual consistency means a write isnt visble everywhere at once
+> **Writing as the user, a teammate asks in a thread what eventually consistent means in the design doc.** eventual consistency means you write here, and the copy gets it later
 
 **Diagnosing a problem**
 
@@ -146,7 +146,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Retries send more work when servers fail.
 
 > [!NOTE]
-> **Writing as the user, an incident thread asks why it got worse after retries were turned on.** retries multiply load at the worst possible moment
+> **Writing as the user, an incident thread asks why it got worse after retries were turned on.** retries send more work when servers fail
 
 **Saying you don't know**
 
@@ -160,7 +160,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** I do not know your rate limit. I cannot see your system. Look in your gateway, or your Stripe webhook page.
 
 > [!NOTE]
-> **Writing as the user, a DM asks for the prod rate limit on the stripe webhook.** i dont know the prod rate limit on the stripe webhook, i have no info on that endpoint so you need to check the gateway or the stripe config for that numbr
+> **Writing as the user, a DM asks for the prod rate limit on the stripe webhook.** dont know your rate limit, i cant see your sytem. look in your gateway or the stripe webhook page
 
 **Defining a term**
 
@@ -174,7 +174,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Race condition: two jobs read the count at the same time. Both see 5. Both take one away. Both write 4. It should be 3.
 
 > [!NOTE]
-> **Writing as the user, a PM asks in a ticket comment what race condition means here.** a race condition is when two threads or processes touch the same data at the same time, and the result depends on which one hapens to get there first
+> **Writing as the user, a PM asks in a ticket comment what race condition means here.** race condition means two jobs read the count at the same time. both see 5, both take one away, both write 4, and it shoud be 3
 
 **Reporting progress**
 
@@ -188,9 +188,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** The payment client now retries with exponential backoff. The integration tests are running. I have no results yet.
 
 > [!NOTE]
-> **Writing as the user, the user posts progress as a ticket comment.** retry logic with exponential backoff is in the payment client
->
-> runing the integration tests now
+> **Writing as the user, the user posts progress as a ticket comment.** the payment client now retries with exponential backoff, the integration tests are runing and i have no results yet
 
 **Answering yes or no**
 
@@ -204,9 +202,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Yes, but only if the migration is backward compatible. The code that runs now must still work. Adding a nullable column is safe. So is an index with no long table lock. A table lock makes requests wait. Rename or drop what the app uses: requests break.
 
 > [!NOTE]
-> **Writing as the user, a teammate asks in slack if they can run the migration while prod is serving traffic.** yes, but only if the migration is backward compatible with the code that is runing now. for example adding a nullable column or an index built without a long table lock
->
-> because a migration that locks a table, or renames or drops something the live app still uses, will block or break requests
+> **Writing as the user, a teammate asks in slack if they can run the migration while prod is serving traffic.** yes, but only if the migration is backward compatible with the code thats running now, like adding a nullable column or an index with no long table lock, because a migration that locks a table, or renames or drops somethng the live app still uses, will block or break requests
 
 **Explaining an error**
 
@@ -220,7 +216,7 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Connection pool exhausted means the pool is full. Every connection is in use. A new request must wait. Or it fails with this error.
 
 > [!NOTE]
-> **Writing as the user, an on-call engineer asks in the incident channel what connection pool exhausted means in the logs.** "Connection pool exhausted" means every connection in the service's pool is in use, so a new request has to wiat for one to free up or fails with that error
+> **Writing as the user, an on-call engineer asks in the incident channel what connection pool exhausted means in the logs.** "Connection pool exhausted" meand the pool is full and every connection is in use. a new request has to wait, or it fails with this error
 
 **Explaining a trade-off**
 
@@ -234,21 +230,21 @@ The level 2 block comes from a separate run. An agent with this skill loaded was
 > **Level 2, simplest.** Each index makes every insert, update and delete slower. The database must update every index each time. Each index also takes disk and memory. Index only columns queries filter, join or sort on.
 
 > [!NOTE]
-> **Writing as the user, a reviewer asks in a PR comment why not just index every column.** every index makes each insert, update and delete slowr because the database has to update all of them, and each one takes disk and memory
+> **Writing as the user, a reviewer asks in a PR comment why not just index every column.** each index makes every insert, update and delete slower because the database must update every index each time
 >
-> so you should index only the columns your queries filter, join or sort on
+> each index also takse disk and memory, so index only the columns queries filter, join or sort on
 
 | Example | Without | Level 1 | Level 2 | As the user |
 |---|---|---|---|---|
-| Explaining a concept | 29 words | 11 words | **10 words** | 10 words |
-| Diagnosing a problem | 16 words | 8 words | **7 words** | 8 words |
-| Saying you don't know | 44 words | 29 words | **21 words** | 32 words |
-| Defining a term | 34 words | 29 words | **25 words** | 29 words |
-| Reporting progress | 26 words | 19 words | **18 words** | 15 words |
-| Answering yes or no | 49 words | 53 words | **47 words** | 53 words |
-| Explaining an error | 51 words | 30 words | **24 words** | 30 words |
-| Explaining a trade-off | 48 words | 38 words | **33 words** | 39 words |
-| **All eight** | **297 words** | **217 words** | **185 words** | **216 words** |
+| Explaining a concept | 29 words | 11 words | **10 words** | 12 words |
+| Diagnosing a problem | 16 words | 8 words | **7 words** | 7 words |
+| Saying you don't know | 44 words | 29 words | **21 words** | 19 words |
+| Defining a term | 34 words | 29 words | **25 words** | 27 words |
+| Reporting progress | 26 words | 19 words | **18 words** | 19 words |
+| Answering yes or no | 49 words | 53 words | **47 words** | 50 words |
+| Explaining an error | 51 words | 30 words | **24 words** | 26 words |
+| Explaining a trade-off | 48 words | 38 words | **33 words** | 36 words |
+| **All eight** | **297 words** | **217 words** | **185 words** | **196 words** |
 
 Across the first five examples, level 1 scores 62.2 for reading ease against 43.7 without the skill. That is the Flesch score: below 30 needs a university degree to read comfortably, and 60 to 70 is plain English. Every technical term survived: eventual consistency, replica, race condition, exponential backoff.
 
@@ -276,7 +272,9 @@ Sometimes you want the agent to write something you will send to another person 
 
 It never touches the agent's replies to you, or the commits, PR text, docs and code comments it writes as part of its own work, unless you ask for that text in this register.
 
-The draft reads like a busy person typed it: short, lowercase in chat and comments, a few typos, no em dashes, no headings. Emails, PR descriptions and ticket descriptions use capitals. Numbers, ticket keys, flags, paths and technical terms stay exact.
+The draft starts from the level 2 answer, with its simple words, and then gets typed like a busy person would: lowercase in chat and comments, a typo about every two to three sentences, short sentences sometimes joined with a comma, no em dashes, no headings. Emails, PR descriptions and ticket descriptions use capitals. Numbers, ticket keys, flags, paths and technical terms stay exact. Ask it to clean a draft up and you get the same simple words with normal casing and no typos.
+
+The typos copy real ones: a key next to the right one, a dropped or doubled letter, two letters swapped, a space typed one key late. Their kinds and weights come from typing studies and from real Reddit comments, collected in [`corpus/typos/`](corpus/typos/README.md). That folder also says how to add fresh examples: every processed source is logged, so a re-run never processes it twice. A typo never makes a different real word, never looks like a spelling mistake, and never touches a number, a term or a word that carries meaning.
 
 For each new draft, the agent asks how to deliver it and whether you have samples of your own writing. Edits to the same draft reuse your answer. You can pick more than one delivery: show it in the chat as plain text, save a `.md` file, or save a `.txt` file. Saved files go to `~/.simple-language/generated/<yyyy-mm-dd>/<hh-mm-ss>/<title>.<ext>`.
 
@@ -361,7 +359,7 @@ Fresh agents, same model (Claude Opus), no shared context. One agent in each pai
 
 **The level 2 answers came from a separate run.** They were produced later, against the shipped `SKILL.md`, with an agent given the level 1 answer and then the reply "explain it like I'm five". They are unedited too, but they were not part of the original paired comparison, so the reading-ease score above covers level 1 only.
 
-**The writing-as-the-user drafts came from a separate run too.** They were produced against the shipped `SKILL.md`. Each fresh subagent got the situation and the facts of the level 1 answer, and nothing else. Drafts that failed the automatic checks (a dash, a heading, a colon in prose, a changed number or term, a dropped causal word, a spelling-rule typo, mixed casing) were regenerated, not edited.
+**The writing-as-the-user drafts came from a separate run too.** They were produced against the shipped `SKILL.md` and `references/typo-kinds.md`. Each fresh subagent got the situation and the facts of the level 1 answer, and nothing else. Drafts that failed the automatic checks (a dash, a heading, a colon in prose, a changed number or term, a dropped causal word, a spelling-rule typo, two typos in one sentence, mixed casing) were regenerated, not edited. Each draft starts from the level 2 version of its source; the README examples used their own level 2 answer as that base. Across all 27 drafts there are 14 typos in 37 sentences, about one every 2.6 sentences.
 
 **The last three examples came from a later run.** Both agents got the same question and the same extra line, "Reply in one sentence.", so they are shorter by request, not by style. They are unedited, and they are not part of the reading-ease score. One level 2 answer in them came out longer than its level 1 answer and was regenerated, not edited. In the yes-or-no example, level 1 came out longer than the answer without the skill, because it kept the reason a migration breaks requests.
 
@@ -380,6 +378,8 @@ README.md                           this file
 references/word-swaps.md            the full word list, plus the words to leave alone
 references/writing-as-the-user.md   the good examples from SKILL.md, written as the user would type them
 references/sample-registry.md       how samples of your own writing are stored and used
+references/typo-kinds.md            which typos to make, how often, and which never to make
+corpus/typos/                       real typos from public sources, and how to collect more
 LICENSE                             MIT
 ```
 
