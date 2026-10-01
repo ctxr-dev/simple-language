@@ -265,6 +265,8 @@ rm -rf /tmp/typos-first
 
 `diff -r` prints nothing when the two folders are the same. To test a network failure, run `node collect.mjs --subreddits devops --api-base http://127.0.0.1:9` with a new window. The run must exit with code 1 and `sources.md` must not change.
 
+The automated versions of these checks run with `node --test corpus/typos/test/` from the repository root. They use a local stub archive and a tiny word list, never the network.
+
 ## Counts
 
 409 rows: 254 used, 8 tamed and 147 skipped. This table is the output of `node collect.mjs --counts`:

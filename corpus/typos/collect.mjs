@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { mkdirSync } from 'node:fs';
+import { mkdirSync, realpathSync } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { CANDIDATES_DIR } from './lib/paths.mjs';
@@ -55,7 +55,7 @@ async function main(argv) {
 
 export { findCandidates, findCandidatesInBody, loadLexicon, decodeEntities };
 
-if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+if (process.argv[1] && import.meta.url === pathToFileURL(realpathSync(process.argv[1])).href) {
   main(process.argv.slice(2)).then(
     (code) => process.exit(code),
     (error) => {
